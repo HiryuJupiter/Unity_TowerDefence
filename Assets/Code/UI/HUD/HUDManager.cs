@@ -3,21 +3,24 @@ using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SocialPlatforms.Impl;
 
+[RequireComponent(typeof(ButtonBorderDisplayer))]
 public class HUDManager : MonoBehaviour
 {
-    public static HUDManager instance;
-
     [SerializeField] GameObject HUDGroup;
     [SerializeField] Text money;
     [SerializeField] Text wave;
+    [SerializeField] Text descriptionText;
     [SerializeField] GameObject[] livesHUDIcons;
+
+    ButtonBorderDisplayer borderDisplyer;
+
     void Awake()
     {
-        instance = this;
+        borderDisplyer = GetComponent<ButtonBorderDisplayer>();
     }
 
     #region Public
-    public void UpdateMoneyCount (int amount)
+    public void UpdateMoneyCount(int amount)
     {
         money.text = amount.ToString();
     }
@@ -33,6 +36,25 @@ public class HUDManager : MonoBehaviour
         for (int i = 0; i < livesHUDIcons.Length; i++)
         {
             livesHUDIcons[i].SetActive(lives > i ? true : false);
+        }
+    }
+
+    public void DisplayDebugText(string text)
+    {
+        //Erase debug text's text box
+        descriptionText.text = text;
+    }
+
+    public void EnterPlacementMode(TowerPlacementModes mode)
+    {
+        borderDisplyer.EnterPlacementMode(mode);
+        if (mode == TowerPlacementModes.None)
+        {
+            DisplayDebugText("");
+        }
+        else
+        {
+            DisplayDebugText("Click on a platform to spawn tower!");
         }
     }
     #endregion

@@ -8,15 +8,17 @@ public class GameManager : MonoBehaviour
     const int StartingHealth = 3; //Max health
 
     //Variables
-    public static GameManager instance;    
+    public static GameManager instance;
 
     //References
+    [SerializeField] PauseMenu pauseMenu;
     UIManager ui;
 
     //Properties
     public static GameStates gameState { get; private set; } = GameStates.Standby;
+    public static TowerPlacementModes PlacementMode { get; private set; } = TowerPlacementModes.None;
     public int lives { get; private set; } = StartingHealth;
-    public int Money { get; private set; } 
+    public int Money { get; private set; }
     public int Wave { get; private set; }
 
     #region MonoBehavior
@@ -44,6 +46,18 @@ public class GameManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.M))
             AddMoney(100);
+
+        if (PlacementMode == TowerPlacementModes.None && 
+            (Input.GetKeyDown(KeyCode.Escape)))
+        {
+            pauseMenu.TogglePause();
+        }
+        else if (PlacementMode != TowerPlacementModes.None &&
+            (Input.GetKeyDown(KeyCode.Escape) || Input.GetMouseButtonDown(1)))
+        {
+            PlacementMode = TowerPlacementModes.None;
+            ui.ExitSpawningMode();
+        }
     }
     #endregion
 
@@ -74,9 +88,14 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Public - events
-    public void WaveFinished ()
+    public void WaveFinished()
     {
         gameState = GameStates.Standby;
+    }
+
+    public void SetTowerPlacementMode(TowerPlacementModes mode)
+    {
+        PlacementMode = mode;
     }
 
     public void ToMainMenu()
@@ -85,7 +104,7 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    void GameOver ()
+    void GameOver()
     {
         ui.GameOver(Wave);
         gameState = GameStates.GameOverScoreboard;

@@ -16,14 +16,6 @@ public class PauseMenu : MonoBehaviour
         SetPause(false);
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            TogglePause();
-        }
-    }
-
     #region Public - buttons
     public void TogglePause()
     {

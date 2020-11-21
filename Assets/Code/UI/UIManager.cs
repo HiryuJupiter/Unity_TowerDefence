@@ -64,5 +64,26 @@ public class UIManager : MonoBehaviour
         //When hurt, set red borders to visible
         hurtBorder.FlashRed();
     }
+
+    public void EnterSpawningMode_Tower1() => EnterSpawningMode(TowerPlacementModes.Tower1);
+    public void EnterSpawningMode_Tower2() => EnterSpawningMode(TowerPlacementModes.Tower2);
+
+    public void ExitSpawningMode()
+    {
+        //To exit spawning mode, we tell the spawn button manager to hide all borders 
+        hud.EnterPlacementMode(TowerPlacementModes.None);
+        gameManager.SetTowerPlacementMode(TowerPlacementModes.None);
+    }
     #endregion
+
+    void EnterSpawningMode(TowerPlacementModes mode)
+    {
+        if (GameManager.PlacementMode != mode)
+        {
+            //Entering a spawning mode for spawning towers
+            Debug.Log("EnterSpawningMode :" + mode);
+            hud.EnterPlacementMode(mode);
+            gameManager.SetTowerPlacementMode(mode);
+        }
+    }
 }

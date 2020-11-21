@@ -29,7 +29,7 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-        gameManager = GameManager.instance;
+        gameManager = GameManager.Instance;
     }
     #endregion
 
@@ -44,17 +44,17 @@ public class UIManager : MonoBehaviour
         gameManager.ToMainMenu();
     }
 
-    public void UpdateLives(int lives)
+    public void DisplayLives(int lives)
     {
         hud.UpdateLivesDisplay(lives);
     }
 
-    public void UpdateWave(int lives)
+    public void DisplayWave(int lives)
     {
         hud.UpdateWave(lives);
     }
 
-    public void UpdateMoney(int amount)
+    public void DisplayMoney(int amount)
     {
         hud.UpdateMoneyCount(amount);
     }

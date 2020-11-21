@@ -6,35 +6,38 @@ public class GameManager : MonoBehaviour
 {
     const int SceneIndex_MainMenu = 0;
     const int StartingHealth = 3; //Max health
+    const int StartingMoney = 100; 
 
     //Variables
-    public static GameManager instance;
+    public static GameManager Instance;
 
     //References
     [SerializeField] PauseMenu pauseMenu;
     UIManager ui;
 
+    //Stats
+    int wavesCompleted;
+    int money = StartingMoney;
+    int lives = StartingHealth;
+
     //Properties
     public static GameStates gameState { get; private set; } = GameStates.Standby;
     public static TowerPlacementModes PlacementMode { get; private set; } = TowerPlacementModes.None;
-    public int lives { get; private set; } = StartingHealth;
-    public int Money { get; private set; }
-    public int Wave { get; private set; }
 
     #region MonoBehavior
 
     void Awake()
     {
-        instance = this;
+        Instance = this;
     }
 
     void Start()
     {
         ui = UIManager.Instance;
 
-        ui.UpdateWave(Wave);
-        ui.UpdateLives(lives);
-        ui.UpdateMoney(Money);
+        ui.DisplayWave(0);
+        ui.DisplayLives(lives);
+        ui.DisplayMoney(money);
     }
 
     void Update()
@@ -62,23 +65,24 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Public - stats change
-    public void StartWave()
+    public void StartWave(int currentWave)
     {
-        ui.UpdateWave(++Wave);
+        ui.DisplayWave(currentWave);
+        wavesCompleted = currentWave - 1;
         gameState = GameStates.WaveStarted;
     }
 
     public void AddMoney(int value)
     {
-        Money += value;
-        ui.UpdateMoney(Money);
+        money += value;
+        ui.DisplayMoney(money);
     }
 
     public void ReduceLife()
     {
         if (gameState == GameStates.WaveStarted)
         {
-            ui.UpdateLives(lives);
+            ui.DisplayLives(lives);
             if (--lives <= 0)
             {
                 GameOver();
@@ -106,7 +110,7 @@ public class GameManager : MonoBehaviour
 
     void GameOver()
     {
-        ui.GameOver(Wave);
+        ui.GameOver(wavesCompleted);
         gameState = GameStates.GameOverScoreboard;
     }
 }

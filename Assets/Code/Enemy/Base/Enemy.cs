@@ -1,20 +1,28 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public abstract class Enemy : MonoBehaviour
 {
     [SerializeField] float moveSpeed = 1f;
     [SerializeField] int hp = 1;
     [SerializeField] int reward = 100;
 
     //Status
-    Path path;
-    Pool pool;
     int waypointIndex;
     Vector3 nextWaypointPos;
     bool reachedEnd;
 
+    //Reference
+    Path path;
+    Pool pool;
+    GameManager gm;
+
     public float Reward => reward;
+
+    void Start()
+    {
+        gm = GameManager.Instance;
+    }
 
     void Update()
     {
@@ -40,6 +48,7 @@ public class Enemy : MonoBehaviour
         hp -= damage;
         if (hp <= 0)
         {
+            gm.AddMoney(reward);
             Despawn();
         }
     }
@@ -53,6 +62,7 @@ public class Enemy : MonoBehaviour
     {
         if (++waypointIndex  >= path.WaypointCount)
         {
+            gm.ReduceLife();
             Despawn();
         }
         else

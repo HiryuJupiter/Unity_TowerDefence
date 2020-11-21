@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tower : MonoBehaviour
+public abstract class Tower
 {
+    EnemySpawner enemies;
     void Start()
     {
         
@@ -12,5 +13,10 @@ public class Tower : MonoBehaviour
     void Update()
     {
         
+    }
+
+    protected virtual void Attack ()
+    { 
+
     }
 }

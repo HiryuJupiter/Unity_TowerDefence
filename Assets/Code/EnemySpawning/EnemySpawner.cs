@@ -17,6 +17,10 @@ public class EnemySpawner : MonoBehaviour
     //Status
     int waveIndex;
     float spawnDelay;
+
+    //Reference
+    GameManager gm;
+
     public bool AllWavesFinished { get; private set;}
 
     #region MonoBehavior
@@ -27,6 +31,11 @@ public class EnemySpawner : MonoBehaviour
         {
             { EnemyTypes.TooManyArms, new Pool(pf_TooManyArms)},
         };
+    }
+
+    void Start()
+    {
+        gm = GameManager.Instance;
     }
     #endregion
 
@@ -45,6 +54,11 @@ public class EnemySpawner : MonoBehaviour
     public void SpawnImmediately ()
     {
         spawnDelay = 0f;
+    }
+
+    public List<Enemy> GetEnemiesInRange (Vector3 origin, float range)
+    {
+
     }
     #endregion
 
@@ -76,6 +90,7 @@ public class EnemySpawner : MonoBehaviour
 
     void SpawnWave()
     {
+        gm.StartWave(waveIndex + 1);
         waves[waveIndex].StartWave(() => WaveComplete(), this);
     }
     #endregion

@@ -6,6 +6,7 @@ using UnityEngine.SocialPlatforms.Impl;
 [RequireComponent(typeof(ButtonBorderDisplayer))]
 public class HUDManager : MonoBehaviour
 {
+    //Exposed variables
     [SerializeField] GameObject HUDGroup;
     [SerializeField] Text money;
     [SerializeField] Text wave;
@@ -16,17 +17,20 @@ public class HUDManager : MonoBehaviour
 
     void Awake()
     {
+        //Reference
         borderDisplyer = GetComponent<ButtonBorderDisplayer>();
     }
 
     #region Public
     public void UpdateMoneyCount(int amount)
     {
+        //Update the text that needs to displayed
         money.text = amount.ToString();
     }
 
     public void UpdateWave(int value)
     {
+        //Update wave text
         wave.text = value.ToString();
     }
 
@@ -47,12 +51,14 @@ public class HUDManager : MonoBehaviour
 
     public void EnterPlacementMode(TowerTypes mode)
     {
+        //Display a certain border
         borderDisplyer.EnterPlacementMode(mode);
         DisplayDebugText("Click on a platform to spawn tower!");
     }
 
     public void ExitPlacementMode ()
     {
+        //Hide current border
         borderDisplyer.ExitPlacementMode();
     }
 

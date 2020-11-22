@@ -3,8 +3,10 @@ using System.Collections.Generic;
 
 public class Pool
 {
+    //Cache
     Vector3 offscreen = new Vector3(-1000, -1000, -1000);
 
+    //Pool lists
     List<GameObject> active = new List<GameObject>();
     List<GameObject> inactive = new List<GameObject>();
     [SerializeField] GameObject prefab;
@@ -12,6 +14,7 @@ public class Pool
     //Constructor
     public Pool(GameObject prefab)
     {
+        //Reference
         this.prefab = prefab;
     }
 
@@ -37,6 +40,7 @@ public class Pool
 
     public void Despawn(GameObject obj)
     {
+        //Return to pool
         obj.transform.position = offscreen;
         inactive.Add(obj);
         active.Remove(obj);

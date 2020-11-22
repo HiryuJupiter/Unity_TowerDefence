@@ -31,21 +31,25 @@ public class UIRendererManager : MonoBehaviour
     #region Public
     public void GameOver(int score)
     {
+        //Display highscore when games over
         highScoreBoard.DisplayHighscore(score);
     }
 
     public void DisplayLives(int lives)
     {
+        //Delegate lives update to HUD manager
         hud.UpdateLivesDisplay(lives);
     }
 
     public void DisplayWave(int lives)
     {
+        //Delegate waves count update to HUD manager
         hud.UpdateWave(lives);
     }
 
     public void DisplayMoney(int amount)
     {
+        //Delegate money display to HUD manager
         hud.UpdateMoneyCount(amount);
     }
 
@@ -58,11 +62,13 @@ public class UIRendererManager : MonoBehaviour
 
     public void TowerPlacementMode(TowerTypes mode)
     {
+        //Tell HDU manager we're in placement mode
         hud.EnterPlacementMode(mode);
     }
 
     public void ExitTowerPlacementMode()
     {
+        //Tell HUD we're no longer in placement mode
         hud.ExitPlacementMode();
         hud.HideDebugText();
     }

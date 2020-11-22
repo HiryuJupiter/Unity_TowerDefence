@@ -13,12 +13,14 @@ public class ButtonBorderDisplayer : MonoBehaviour
 
     void Awake()
     {
+        //Look up table
         modeToIndexLookUp = new Dictionary<TowerTypes, int>()
         {
             {TowerTypes.Tower1, 0 },
             {TowerTypes.Tower2, 1 },
         };
 
+        //Hide all borders
         foreach (var b in buttonBorders)
         {
             b.enabled = false;
@@ -28,6 +30,7 @@ public class ButtonBorderDisplayer : MonoBehaviour
     #region Public
     public void EnterPlacementMode(TowerTypes mode)
     {
+        //First hide currently revealed borders then revela the new one
         HideCurrentBorder();
         RevealButtonBorder(modeToIndexLookUp[mode]);
     }
@@ -58,6 +61,7 @@ public class ButtonBorderDisplayer : MonoBehaviour
 
     void SetBorderVisibility(int index, bool isVisible)
     {
+        //Set border's visibility 
         buttonBorders[index].enabled = isVisible;
         if (isVisible)
         {

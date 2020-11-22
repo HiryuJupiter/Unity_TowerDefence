@@ -3,6 +3,7 @@ using System.Collections;
 
 public class AmmunitionPool : MonoBehaviour
 {
+    //Lazy singleton
     public static AmmunitionPool Instance;
 
     [Header("Prefabs")]

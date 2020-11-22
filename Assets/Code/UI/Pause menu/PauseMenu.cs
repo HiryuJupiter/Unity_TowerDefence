@@ -13,12 +13,14 @@ public class PauseMenu : MonoBehaviour
 
     void Start()
     {
+        
         SetPause(false);
     }
 
     #region Public - buttons
     public void TogglePause()
     {
+        //Set pause to the opposite of its current value
         SetPause(isPaused = !isPaused);
     }
 

@@ -5,8 +5,10 @@ using System.Collections.Generic;
 
 public class PlacementManager : MonoBehaviour
 {
+    //Lazy singleton
     public static PlacementManager Instance;
 
+    //Exposed variables
     [SerializeField] Dummy Tower1;
     [SerializeField] Dummy Tower2;
     [SerializeField] TowerGhost ghost_Tower1;
@@ -32,13 +34,19 @@ public class PlacementManager : MonoBehaviour
     //Cache
     Plane invisiblePlane = new Plane(Vector3.up, new Vector3(0, 1, 0));
 
+    //property
     public bool IsInPlacementMode { get; private set; }
-
 
     void Awake()
     {
+        //Lazy Singleton
         Instance = this;
+
+        //Refernce
         camera = Camera.main.transform;
+        eventSystem = EventSystem.current;
+
+        //Initialize
         towerLookup = new Dictionary<TowerTypes, Dummy>()
         {
             {TowerTypes.Tower1, Tower1 },
@@ -50,19 +58,18 @@ public class PlacementManager : MonoBehaviour
             {TowerTypes.Tower1, ghost_Tower1 },
             {TowerTypes.Tower2, ghost_Tower2 },
         };
-
-        eventSystem = EventSystem.current;
-        
     }
 
     void Start()
     {
+        //Reference
         ui = UIRendererManager.Instance;
         settings = Settings.Instance;
     }
 
     void Update()
     {
+        //If in placement mode, then update the placement logic. 
         if (IsInPlacementMode)
         {
             PlacementUpdate();
@@ -74,6 +81,7 @@ public class PlacementManager : MonoBehaviour
     }
 
     #region Public
+    //Public methods to provide hooks for UI buttons
     public void EnterMode_Tower1() => EnterPlacementMode(TowerTypes.Tower1);
     public void EnterMode_Tower2() => EnterPlacementMode(TowerTypes.Tower2);
     #endregion
@@ -111,6 +119,7 @@ public class PlacementManager : MonoBehaviour
 
     void PlaceTower()
     {
+        //Create a tower and then place it on a  platform
         Dummy tower = Instantiate(towerLookup[towerMode], platformTransform.position, Quaternion.identity);
         platformTransform.GetComponent<Platform>().PlaceTower(tower);
     }
@@ -121,6 +130,7 @@ public class PlacementManager : MonoBehaviour
         //Mostly updates ghost position. Also for exiting mode after placing tower.
         if (HitsAnEmptyPlatform())
         {
+            //If hits an empty platform, make the ghost image green and snap it to place
             platformTransform = hit.transform;
             currentGhost.SetPosition(platformTransform.position);
             SetGhostPlacementAvailability(true);
@@ -133,12 +143,14 @@ public class PlacementManager : MonoBehaviour
         }
         else if (HitsAnyCollider)
         {
+            //If hits a collider, then display ghost above it
             platformTransform = null;
             currentGhost.SetPosition(hit.point);
             SetGhostPlacementAvailability(false);
         }
         else
         {
+            //If hits nothing, then make if float in air
             platformTransform = null;
             currentGhost.SetPosition(MousePositionOnInvisiblePlane());
             SetGhostPlacementAvailability(false);
@@ -146,6 +158,7 @@ public class PlacementManager : MonoBehaviour
     }
 
     #region Minor methods and helper properties
+    //Expression body methods for self documenting code
     bool PlayerPressesExitKey => (Input.GetKeyDown(KeyCode.Escape) || Input.GetMouseButtonDown(1));
     bool HitsPlatform => Physics.Raycast(CameraToMouseRay, out hit, 100f, settings.PlatformLayer);
     bool HitsAnyCollider => Physics.Raycast(CameraToMouseRay, out hit, 100f);
@@ -154,6 +167,7 @@ public class PlacementManager : MonoBehaviour
     bool IsMouseOverUI => eventSystem.IsPointerOverGameObject();
     bool HitsAnEmptyPlatform()
     {
+        //If hits an empty platform, return true
         if (HitsPlatform)
         {
             if (!hit.transform.GetComponent<Platform>().HasTower)

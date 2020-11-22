@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
+//A UI-subordinate script for handing highscore board related logic
 public class HighscoreBoard : MonoBehaviour
 {
     [SerializeField] GameObject highscoreBoard;
@@ -12,11 +13,13 @@ public class HighscoreBoard : MonoBehaviour
 
     void Awake()
     {
+        //Hide board
         highscoreBoard.SetActive(false);
     }
 
     public void DisplayHighscore (int score)
     {
+        //Reveal board and update score and check if this is new high score
         highscoreBoard.SetActive(true);
         highscore = score;
         CheckIfNewHighscore(score);

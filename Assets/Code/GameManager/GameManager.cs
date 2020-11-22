@@ -4,12 +4,15 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    //Consts
     const int SceneIndex_MainMenu = 0;
     const int StartingHealth = 3; //Max health
     const int StartingMoney = 100; 
 
+    //Lazy singleton
     public static GameManager Instance;
 
+    //Exposed variables
     [SerializeField] PauseMenu pauseMenu;
 
     //References
@@ -28,14 +31,17 @@ public class GameManager : MonoBehaviour
     #region MonoBehavior
     void Awake()
     {
+        //Lazy singleton
         Instance = this;
     }
 
     void Start()
     {
+        //Reference
         ui = UIRendererManager.Instance;
         towerPlacer = PlacementManager.Instance;
 
+        //Initialize UI display for HUD items
         ui.DisplayWave(0);
         ui.DisplayLives(lives);
         ui.DisplayMoney(money);
@@ -51,6 +57,7 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.M))
             AddMoney(100);
 
+        //Toggle pause when player pressed Escape
         if (!IsInPlacementMode && (Input.GetKeyDown(KeyCode.Escape)))
         {
             pauseMenu.TogglePause();
@@ -61,6 +68,7 @@ public class GameManager : MonoBehaviour
     #region Public - stats change
     public void StartWave(int currentWave)
     {
+        //Update UI wave count
         ui.DisplayWave(currentWave);
         wavesCompleted = currentWave - 1;
         gameState = GameStates.WaveStarted;
@@ -68,17 +76,20 @@ public class GameManager : MonoBehaviour
 
     public void AddMoney(int value)
     {
+        //Increment money
         money += value;
         ui.DisplayMoney(money);
     }
 
     public void ReduceLife()
     {
+        //If game is still running, reduce life points.
         if (gameState == GameStates.WaveStarted)
         {
             --lives;
             ui.DisplayLives(lives);
             ui.OnDamaged();
+            //Game is over when no more hp left.
             if (lives <= 0)
             {
                 GameOver();
@@ -88,6 +99,7 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Public - events
+    //Public methods for UI buttons
     public void WaveFinished()
     {
         gameState = GameStates.Standby;
@@ -95,17 +107,20 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
+        //Load current scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void ToMainMenu()
     {
+        //Load main menu scene
         SceneManager.LoadScene(SceneIndex_MainMenu);
     }
     #endregion
 
     void GameOver()
     {
+        //Tell ui manager we're done and let it decide how to clean up the interface
         ui.GameOver(wavesCompleted);
         gameState = GameStates.GameOverScoreboard;
     }

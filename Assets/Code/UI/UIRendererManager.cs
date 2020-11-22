@@ -55,8 +55,13 @@ public class UIRendererManager : MonoBehaviour
     }
     #endregion
 
-    public void RevealSpawningModeUI(PlacementModes mode)
+    public void TowerPlacementMode(TowerTypes mode)
     {
         hud.EnterPlacementMode(mode);
+    }
+
+    public void ExitTowerPlacementMode()
+    {
+        hud.HideDebugText();
     }
 }

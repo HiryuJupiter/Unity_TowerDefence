@@ -45,17 +45,15 @@ public class HUDManager : MonoBehaviour
         descriptionText.text = text;
     }
 
-    public void EnterPlacementMode(PlacementModes mode)
+    public void EnterPlacementMode(TowerTypes mode)
     {
         borderDisplyer.EnterPlacementMode(mode);
-        if (mode == PlacementModes.None)
-        {
-            DisplayDebugText("");
-        }
-        else
-        {
-            DisplayDebugText("Click on a platform to spawn tower!");
-        }
+        DisplayDebugText("Click on a platform to spawn tower!");
+    }
+
+    public void HideDebugText ()
+    {
+        DisplayDebugText("");
     }
     #endregion
 }

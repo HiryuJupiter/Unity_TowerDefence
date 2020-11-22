@@ -23,8 +23,7 @@ public class GameManager : MonoBehaviour
 
     //Properties
     public static GameStates gameState { get; private set; } = GameStates.Standby;
-
-    bool IsInPlacementMode => towerPlacer.PlacementMode != PlacementModes.None;
+    bool IsInPlacementMode => towerPlacer.IsInPlacementMode;
 
     #region MonoBehavior
     void Awake()

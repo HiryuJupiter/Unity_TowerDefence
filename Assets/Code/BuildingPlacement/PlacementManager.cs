@@ -27,6 +27,7 @@ public class PlacementManager : MonoBehaviour
     Transform platformTransform;
     RaycastHit hit;
     TowerGhost currentGhost;
+    bool canReceiveMouseClick = true;
 
     //Cache
     Plane invisiblePlane = new Plane(Vector3.up, new Vector3(0, 1, 0));
@@ -80,19 +81,32 @@ public class PlacementManager : MonoBehaviour
     #region Private
     void ExitPlacementMode()
     {
+        //Ghost
         SetCurrentGhostVisibility(false);
+
+        //UI
+        ui.ExitTowerPlacementMode();
+
+        //Status
         IsInPlacementMode = false;
         platformTransform = null;
-        ui.ExitTowerPlacementMode();
+        
     }
 
     void EnterPlacementMode(TowerTypes mode)
     {
-        SetCurrentGhostVisibility(true);
+        StartCoroutine(DelayMouseClickDetection());
+        //UI
+        ui.TowerPlacementMode(mode);
+
+        //Ghost 
+        SetCurrentGhostVisibility(false);
         currentGhost = ghostLookup[mode];
+        SetCurrentGhostVisibility(true);
+
+        //Status
         IsInPlacementMode = true;
         towerMode = mode;
-        ui.TowerPlacementMode(mode);
     }
 
     void PlaceTower()
@@ -109,7 +123,7 @@ public class PlacementManager : MonoBehaviour
         {
             platformTransform = hit.transform;
             currentGhost.SetPosition(platformTransform.position);
-            SetGhostColorToGreen(true);
+            SetGhostPlacementAvailability(true);
 
             if (ClickedMouseToPlaceTower)
             {
@@ -121,13 +135,13 @@ public class PlacementManager : MonoBehaviour
         {
             platformTransform = null;
             currentGhost.SetPosition(hit.point);
-            SetGhostColorToGreen(false);
+            SetGhostPlacementAvailability(false);
         }
         else
         {
             platformTransform = null;
             currentGhost.SetPosition(MousePositionOnInvisiblePlane());
-            SetGhostColorToGreen(false);
+            SetGhostPlacementAvailability(false);
         }
     }
 
@@ -135,8 +149,9 @@ public class PlacementManager : MonoBehaviour
     bool PlayerPressesExitKey => (Input.GetKeyDown(KeyCode.Escape) || Input.GetMouseButtonDown(1));
     bool HitsPlatform => Physics.Raycast(CameraToMouseRay, out hit, 100f, settings.PlatformLayer);
     bool HitsAnyCollider => Physics.Raycast(CameraToMouseRay, out hit, 100f);
-    bool ClickedMouseToPlaceTower => !eventSystem.IsPointerOverGameObject() && Input.GetMouseButtonDown(0);
+    bool ClickedMouseToPlaceTower => canReceiveMouseClick && !IsMouseOverUI && Input.GetMouseButtonDown(0);
     Ray CameraToMouseRay => Camera.main.ScreenPointToRay(Input.mousePosition);
+    bool IsMouseOverUI => eventSystem.IsPointerOverGameObject();
     bool HitsAnEmptyPlatform()
     {
         if (HitsPlatform)
@@ -148,6 +163,16 @@ public class PlacementManager : MonoBehaviour
         }
         return false;
     }
+
+    IEnumerator DelayMouseClickDetection ()
+    {
+        //After clicking on a UI button, do not allow detecting mouse click on the 
+        //...same frame
+        canReceiveMouseClick = false;
+        yield return null;
+        canReceiveMouseClick = true;
+    }
+
 
     void SetCurrentGhostVisibility(bool isVisible)
     {
@@ -165,11 +190,11 @@ public class PlacementManager : MonoBehaviour
         return ray.GetPoint(distance);
     }
 
-    void SetGhostColorToGreen(bool isGreen)
+    void SetGhostPlacementAvailability(bool canPlace)
     {
         if (currentGhost != null)
         {
-            currentGhost.SetColor(isGreen ? Color.green : Color.red);
+            currentGhost.SetPlacementAvailability(canPlace);
         }
     }
     #endregion

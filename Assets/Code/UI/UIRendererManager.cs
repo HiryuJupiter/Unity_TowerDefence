@@ -62,6 +62,7 @@ public class UIRendererManager : MonoBehaviour
 
     public void ExitTowerPlacementMode()
     {
+        hud.ExitPlacementMode();
         hud.HideDebugText();
     }
 }

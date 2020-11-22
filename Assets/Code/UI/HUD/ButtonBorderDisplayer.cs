@@ -30,16 +30,21 @@ public class ButtonBorderDisplayer : MonoBehaviour
     {
         HideCurrentBorder();
         RevealButtonBorder(modeToIndexLookUp[mode]);
-
     }
-    public void RevealButtonBorder(int buttonIndex)
+
+    public void ExitPlacementMode ()
+    {
+        HideCurrentBorder();
+    }
+
+    #endregion
+    void RevealButtonBorder(int buttonIndex)
     {
         //Hide the currently active border then reveal the new highlight border
         HideCurrentBorder();
 
         SetBorderVisibility(buttonIndex, true);
     }
-    #endregion
 
     void HideCurrentBorder()
     {

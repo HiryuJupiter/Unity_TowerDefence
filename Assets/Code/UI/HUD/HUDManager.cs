@@ -51,6 +51,11 @@ public class HUDManager : MonoBehaviour
         DisplayDebugText("Click on a platform to spawn tower!");
     }
 
+    public void ExitPlacementMode ()
+    {
+        borderDisplyer.ExitPlacementMode();
+    }
+
     public void HideDebugText ()
     {
         DisplayDebugText("");

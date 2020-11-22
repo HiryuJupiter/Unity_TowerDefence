@@ -540,7 +540,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: One button prototype
+  m_Text: Tower Defense
 --- !u!222 &141583152
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1780,7 +1780,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'Assignment 2 - One button game
+  m_Text: 'Tower defence
 
 '
 --- !u!222 &1294269128

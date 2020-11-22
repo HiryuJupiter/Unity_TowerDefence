@@ -27,9 +27,7 @@ public abstract class Enemy : PoolObject
 
     protected virtual void Update()
     {
-        Debug.Log(" dist to next waypoint:" + Vector2.SqrMagnitude(transform.position - nextWaypointPos));
-   
-           MoveAlongPath();
+        MoveAlongPath();
     }
     #endregion
 

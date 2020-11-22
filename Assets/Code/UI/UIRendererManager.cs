@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 [RequireComponent(typeof(HUDManager))]
 [RequireComponent(typeof(OnHurtHUDBorder))]
+[RequireComponent(typeof(HighscoreBoard))]
 public class UIRendererManager : MonoBehaviour
 {
     public static UIRendererManager Instance;

@@ -76,9 +76,10 @@ public class GameManager : MonoBehaviour
     {
         if (gameState == GameStates.WaveStarted)
         {
+            --lives;
             ui.DisplayLives(lives);
             ui.OnDamaged();
-            if (--lives <= 0)
+            if (lives <= 0)
             {
                 GameOver();
             }
@@ -92,6 +93,11 @@ public class GameManager : MonoBehaviour
         gameState = GameStates.Standby;
     }
 
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
     public void ToMainMenu()
     {
         SceneManager.LoadScene(SceneIndex_MainMenu);
@@ -103,4 +109,9 @@ public class GameManager : MonoBehaviour
         ui.GameOver(wavesCompleted);
         gameState = GameStates.GameOverScoreboard;
     }
+
+    //void GameLost ()
+    //{
+    //    ui.GameLost(wavesCompleted);
+    //}
 }

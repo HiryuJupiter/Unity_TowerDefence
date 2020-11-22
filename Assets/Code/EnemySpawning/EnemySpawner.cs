@@ -36,6 +36,7 @@ public class EnemySpawner : MonoBehaviour
     void Start()
     {
         gm = GameManager.Instance;
+        StartLevel();
     }
     #endregion
 
@@ -59,19 +60,13 @@ public class EnemySpawner : MonoBehaviour
     #endregion
 
     #region Private
-    void WaveComplete()
+    void SpawnWave()
     {
-        if (++waveIndex < waves.Count)
-        {
-            StartCoroutine(DelayThenSpawnWave());
-        }
-        else
-        {
-            AllWavesFinished = true;
-        }
+        gm.StartWave(waveIndex + 1);
+        waves[waveIndex].StartWave(() => WaveComplete(), this);
     }
 
-    IEnumerator DelayThenSpawnWave ()
+    IEnumerator DelayThenSpawnWave()
     {
         spawnDelay = WaveInterval;
         while (spawnDelay > 0f)
@@ -84,10 +79,16 @@ public class EnemySpawner : MonoBehaviour
         SpawnWave();
     }
 
-    void SpawnWave()
+    void WaveComplete()
     {
-        gm.StartWave(waveIndex + 1);
-        waves[waveIndex].StartWave(() => WaveComplete(), this);
+        if (++waveIndex < waves.Count)
+        {
+            StartCoroutine(DelayThenSpawnWave());
+        }
+        else
+        {
+            AllWavesFinished = true;
+        }
     }
     #endregion
 }

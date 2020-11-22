@@ -19,6 +19,7 @@ public abstract class Enemy : PoolObject
     public float Reward => reward;
     public bool Alive => hp > 0;
 
+    #region MonoBehavior
     protected virtual void Start()
     {
         gm = GameManager.Instance;
@@ -26,20 +27,25 @@ public abstract class Enemy : PoolObject
 
     protected virtual void Update()
     {
-        MoveAlongPath();
+        Debug.Log(" dist to next waypoint:" + Vector2.SqrMagnitude(transform.position - nextWaypointPos));
+   
+           MoveAlongPath();
     }
+    #endregion
 
+    #region Public
     public void Initialize(Path path)
     {
         this.path = path;
         reachedEnd = false;
+        waypointIndex = 1;
 
         transform.position = path.GetWaypointPosition(0);
-
-        ReachedCurrentWaypoint();
+        nextWaypointPos = CurrentWaypointPosition;
+        transform.rotation = RotationToNext;
     }
 
-    public void TakeDamage (int damage)
+    public void TakeDamage(int damage)
     {
         hp -= damage;
         if (hp <= 0)
@@ -48,29 +54,43 @@ public abstract class Enemy : PoolObject
             ReturnToPool();
         }
     }
-
-    void ReachedCurrentWaypoint ()
+    #endregion
+    void MoveAlongPath()
     {
-        if (++waypointIndex  >= path.WaypointCount)
+        if (!reachedEnd)
         {
+            if (ArrivedAtWaypoint)
+            {
+                ReachedCurrentWaypoint();
+            }
+            else
+            {
+                Vector3 dir = Vector3.RotateTowards(transform.forward, DirectionToNext, 4f * Time.deltaTime, 0.0f);
+                transform.rotation = Quaternion.LookRotation(dir, Vector3.up);
+                transform.position += transform.forward * moveSpeed * Time.deltaTime;
+
+            }
+        }
+    }
+
+    void ReachedCurrentWaypoint()
+    {
+        if (++waypointIndex >= path.WaypointCount)
+        {
+            Debug.Log("Reached end");
             gm.ReduceLife();
             reachedEnd = true;
             ReturnToPool();
         }
         else
         {
-            nextWaypointPos = path.GetWaypointPosition(waypointIndex);
-            transform.rotation = Quaternion.LookRotation(nextWaypointPos - transform.position, Vector3.up);
+            nextWaypointPos = CurrentWaypointPosition;
+            //transform.rotation = RotationToNext;
         }
     }
 
-    void MoveAlongPath()
-    {
-        if (!reachedEnd && ArrivedAtWaypoint)
-        {
-            ReachedCurrentWaypoint();
-        }
-    }
-
-    bool ArrivedAtWaypoint => Vector2.SqrMagnitude(transform.position - nextWaypointPos) < 1f;
+    Quaternion RotationToNext => Quaternion.LookRotation(DirectionToNext, Vector3.up);
+    Vector3 CurrentWaypointPosition => path.GetWaypointPosition(waypointIndex);
+    bool ArrivedAtWaypoint => Vector3.Distance(transform.position, nextWaypointPos) < 0.01f;
+    Vector3 DirectionToNext => nextWaypointPos - transform.position;
 }

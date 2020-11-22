@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5592596587590003079}
   - component: {fileID: 5592596587590003078}
   - component: {fileID: 5592596587590003073}
-  - component: {fileID: 5592596587590003072}
+  - component: {fileID: 8993469699775575844}
   m_Layer: 0
   m_Name: Test_Enemy
   m_TagString: Untagged
@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b520fc8ee56a3c14e8b68b241052cff6, type: 2}
+  - {fileID: 2100000, guid: 8f800e7c387081f409f53b9ed38bd2b2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -94,7 +94,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5592596587590003072
+--- !u!114 &8993469699775575844
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5592596587590003075}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5cf393fba9c8294299d2d298978f019, type: 3}
+  m_Script: {fileID: 11500000, guid: 329e2e3a25f338c4e8b7bd1f38336152, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1

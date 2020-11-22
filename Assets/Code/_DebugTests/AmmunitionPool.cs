@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TowerAmmunitionManager : MonoBehaviour
+public class AmmunitionPool : MonoBehaviour
 {
-    public static TowerAmmunitionManager Instance;
+    public static AmmunitionPool Instance;
 
     [Header("Prefabs")]
     [SerializeField] GameObject basicBullet;

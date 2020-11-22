@@ -7,7 +7,9 @@ public class Settings : MonoBehaviour
     public static Settings Instance;
 
     [SerializeField] LayerMask enemyLayer;
+    [SerializeField] LayerMask platformLayer;
 
+    public LayerMask PlatformLayer => platformLayer;
     public LayerMask EnemyLayer => enemyLayer;
 
     void Awake()

@@ -9,14 +9,14 @@ public class ButtonBorderDisplayer : MonoBehaviour
 
     int currentlyRevealed = -1;
 
-    Dictionary<TowerPlacementModes, int> modeToIndexLookUp;
+    Dictionary<PlacementModes, int> modeToIndexLookUp;
 
     void Awake()
     {
-        modeToIndexLookUp = new Dictionary<TowerPlacementModes, int>()
+        modeToIndexLookUp = new Dictionary<PlacementModes, int>()
         {
-            {TowerPlacementModes.Tower1, 0 },
-            {TowerPlacementModes.Tower2, 1 },
+            {PlacementModes.Tower1, 0 },
+            {PlacementModes.Tower2, 1 },
         };
 
         foreach (var b in buttonBorders)
@@ -26,10 +26,10 @@ public class ButtonBorderDisplayer : MonoBehaviour
     }
 
     #region Public
-    public void EnterPlacementMode(TowerPlacementModes mode)
+    public void EnterPlacementMode(PlacementModes mode)
     {
         HideCurrentBorder();
-        if (mode != TowerPlacementModes.None)
+        if (mode != PlacementModes.None)
         {
             RevealButtonBorder(modeToIndexLookUp[mode]);
         }

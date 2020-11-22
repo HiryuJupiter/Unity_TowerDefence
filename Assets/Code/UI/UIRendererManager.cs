@@ -6,14 +6,13 @@ using UnityEngine.UI;
 
 [RequireComponent(typeof(HUDManager))]
 [RequireComponent(typeof(OnHurtHUDBorder))]
-public class UIManager : MonoBehaviour
+public class UIRendererManager : MonoBehaviour
 {
-    public static UIManager Instance;
+    public static UIRendererManager Instance;
 
     HUDManager hud;
     OnHurtHUDBorder hurtBorder;
     HighscoreBoard highScoreBoard;
-    GameManager gameManager;
 
     #region MonoBehavior
     void Awake()
@@ -26,22 +25,12 @@ public class UIManager : MonoBehaviour
         hurtBorder = GetComponent<OnHurtHUDBorder>();
         highScoreBoard = GetComponent<HighscoreBoard>();
     }
-
-    void Start()
-    {
-        gameManager = GameManager.Instance;
-    }
     #endregion
 
     #region Public
     public void GameOver(int score)
     {
         highScoreBoard.DisplayHighscore(score);
-    }
-
-    public void ToMainMenu()
-    {
-        gameManager.ToMainMenu();
     }
 
     public void DisplayLives(int lives)
@@ -64,26 +53,10 @@ public class UIManager : MonoBehaviour
         //When hurt, set red borders to visible
         hurtBorder.FlashRed();
     }
-
-    public void EnterSpawningMode_Tower1() => EnterSpawningMode(TowerPlacementModes.Tower1);
-    public void EnterSpawningMode_Tower2() => EnterSpawningMode(TowerPlacementModes.Tower2);
-
-    public void ExitSpawningMode()
-    {
-        //To exit spawning mode, we tell the spawn button manager to hide all borders 
-        hud.EnterPlacementMode(TowerPlacementModes.None);
-        gameManager.SetTowerPlacementMode(TowerPlacementModes.None);
-    }
     #endregion
 
-    void EnterSpawningMode(TowerPlacementModes mode)
+    public void RevealSpawningModeUI(PlacementModes mode)
     {
-        if (GameManager.PlacementMode != mode)
-        {
-            //Entering a spawning mode for spawning towers
-            Debug.Log("EnterSpawningMode :" + mode);
-            hud.EnterPlacementMode(mode);
-            gameManager.SetTowerPlacementMode(mode);
-        }
+        hud.EnterPlacementMode(mode);
     }
 }

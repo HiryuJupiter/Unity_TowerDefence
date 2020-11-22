@@ -45,10 +45,10 @@ public class HUDManager : MonoBehaviour
         descriptionText.text = text;
     }
 
-    public void EnterPlacementMode(TowerPlacementModes mode)
+    public void EnterPlacementMode(PlacementModes mode)
     {
         borderDisplyer.EnterPlacementMode(mode);
-        if (mode == TowerPlacementModes.None)
+        if (mode == PlacementModes.None)
         {
             DisplayDebugText("");
         }

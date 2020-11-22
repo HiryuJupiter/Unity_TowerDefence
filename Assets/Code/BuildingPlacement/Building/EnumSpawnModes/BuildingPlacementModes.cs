@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public enum TowerPlacementModes
+public enum PlacementModes
 {
     None,
     Tower1,

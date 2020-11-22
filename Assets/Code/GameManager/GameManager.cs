@@ -8,12 +8,13 @@ public class GameManager : MonoBehaviour
     const int StartingHealth = 3; //Max health
     const int StartingMoney = 100; 
 
-    //Variables
     public static GameManager Instance;
 
-    //References
     [SerializeField] PauseMenu pauseMenu;
-    UIManager ui;
+
+    //References
+    PlacementManager towerPlacer;
+    UIRendererManager ui;
 
     //Stats
     int wavesCompleted;
@@ -22,10 +23,10 @@ public class GameManager : MonoBehaviour
 
     //Properties
     public static GameStates gameState { get; private set; } = GameStates.Standby;
-    public static TowerPlacementModes PlacementMode { get; private set; } = TowerPlacementModes.None;
+
+    bool IsInPlacementMode => towerPlacer.PlacementMode != PlacementModes.None;
 
     #region MonoBehavior
-
     void Awake()
     {
         Instance = this;
@@ -33,7 +34,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        ui = UIManager.Instance;
+        ui = UIRendererManager.Instance;
+        towerPlacer = PlacementManager.Instance;
 
         ui.DisplayWave(0);
         ui.DisplayLives(lives);
@@ -50,16 +52,9 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.M))
             AddMoney(100);
 
-        if (PlacementMode == TowerPlacementModes.None && 
-            (Input.GetKeyDown(KeyCode.Escape)))
+        if (!IsInPlacementMode && (Input.GetKeyDown(KeyCode.Escape)))
         {
             pauseMenu.TogglePause();
-        }
-        else if (PlacementMode != TowerPlacementModes.None &&
-            (Input.GetKeyDown(KeyCode.Escape) || Input.GetMouseButtonDown(1)))
-        {
-            PlacementMode = TowerPlacementModes.None;
-            ui.ExitSpawningMode();
         }
     }
     #endregion
@@ -96,11 +91,6 @@ public class GameManager : MonoBehaviour
     public void WaveFinished()
     {
         gameState = GameStates.Standby;
-    }
-
-    public void SetTowerPlacementMode(TowerPlacementModes mode)
-    {
-        PlacementMode = mode;
     }
 
     public void ToMainMenu()

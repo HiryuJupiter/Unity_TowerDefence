@@ -83,6 +83,7 @@ public class GameManager : MonoBehaviour
         if (gameState == GameStates.WaveStarted)
         {
             ui.DisplayLives(lives);
+            ui.OnDamaged();
             if (--lives <= 0)
             {
                 GameOver();

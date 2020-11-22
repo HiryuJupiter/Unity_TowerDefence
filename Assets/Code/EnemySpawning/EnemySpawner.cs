@@ -48,7 +48,7 @@ public class EnemySpawner : MonoBehaviour
     public void SpawnEnemy(EnemyTypes enemyType, int pathIndex)
     {
         GameObject pf = pools[enemyType].Spawn();
-        pf.GetComponent<Enemy>().Initialize(pools[enemyType], paths[pathIndex]);
+        pf.GetComponent<Enemy>().Initialize(paths[pathIndex]);
     }
 
     public void SpawnImmediately ()
@@ -56,10 +56,6 @@ public class EnemySpawner : MonoBehaviour
         spawnDelay = 0f;
     }
 
-    public List<Enemy> GetEnemiesInRange (Vector3 origin, float range)
-    {
-
-    }
     #endregion
 
     #region Private

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public abstract class Enemy : MonoBehaviour
+public abstract class Enemy : PoolObject
 {
     [SerializeField] float moveSpeed = 1f;
     [SerializeField] int hp = 1;
@@ -14,28 +14,24 @@ public abstract class Enemy : MonoBehaviour
 
     //Reference
     Path path;
-    Pool pool;
     GameManager gm;
 
     public float Reward => reward;
+    public bool Alive => hp > 0;
 
-    void Start()
+    protected virtual void Start()
     {
         gm = GameManager.Instance;
     }
 
-    void Update()
+    protected virtual void Update()
     {
-        if (!reachedEnd && ArrivedAtWaypoint)
-        {
-            ReachedCurrentWaypoint();
-        }
+        MoveAlongPath();
     }
 
-    public void Initialize(Pool pool, Path path)
+    public void Initialize(Path path)
     {
         this.path = path;
-        this.pool = pool;
         reachedEnd = false;
 
         transform.position = path.GetWaypointPosition(0);
@@ -49,13 +45,8 @@ public abstract class Enemy : MonoBehaviour
         if (hp <= 0)
         {
             gm.AddMoney(reward);
-            Despawn();
+            ReturnToPool();
         }
-    }
-
-    public void Despawn()
-    {
-        pool.Despawn(gameObject);
     }
 
     void ReachedCurrentWaypoint ()
@@ -63,12 +54,21 @@ public abstract class Enemy : MonoBehaviour
         if (++waypointIndex  >= path.WaypointCount)
         {
             gm.ReduceLife();
-            Despawn();
+            reachedEnd = true;
+            ReturnToPool();
         }
         else
         {
             nextWaypointPos = path.GetWaypointPosition(waypointIndex);
             transform.rotation = Quaternion.LookRotation(nextWaypointPos - transform.position, Vector3.up);
+        }
+    }
+
+    void MoveAlongPath()
+    {
+        if (!reachedEnd && ArrivedAtWaypoint)
+        {
+            ReachedCurrentWaypoint();
         }
     }
 

@@ -9,6 +9,7 @@ public class PlacementManager : MonoBehaviour
     public static PlacementManager Instance;
 
     //Exposed variables
+    [SerializeField] private LayerMask platformLayer;
     [SerializeField] private BasicTower Tower1;
     [SerializeField] private BasicTower Tower2;
     [SerializeField] private TowerGhost ghost_Tower1;
@@ -21,7 +22,6 @@ public class PlacementManager : MonoBehaviour
     //References
     private UIRendererManager ui;
     private Transform camera;
-    private Settings settings;
     private EventSystem eventSystem;
 
     //Status
@@ -64,7 +64,6 @@ public class PlacementManager : MonoBehaviour
     {
         //Reference
         ui = UIRendererManager.Instance;
-        settings = Settings.Instance;
     }
 
     private void Update()
@@ -161,7 +160,7 @@ public class PlacementManager : MonoBehaviour
     //Expression body methods for self documenting code
     private bool PlayerPressesExitKey => (Input.GetKeyDown(KeyCode.Escape) || Input.GetMouseButtonDown(1));
 
-    private bool HitsPlatform => Physics.Raycast(CameraToMouseRay, out hit, 100f, settings.PlatformLayer);
+    private bool HitsPlatform => Physics.Raycast(CameraToMouseRay, out hit, 100f, platformLayer);
 
     private bool HitsAnyCollider => Physics.Raycast(CameraToMouseRay, out hit, 100f);
 

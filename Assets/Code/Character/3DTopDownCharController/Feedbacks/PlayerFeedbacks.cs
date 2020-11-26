@@ -51,5 +51,3 @@ public class PlayerFeedbacks : MonoBehaviour
 
 
 }
-
-public enum PlayerAnimations { Idle, Run, Crawl, Jump}

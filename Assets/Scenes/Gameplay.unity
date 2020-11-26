@@ -3167,6 +3167,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1060697605, guid: e8b9327cf5a6e634a90ba46de14ca53a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 1546309221032934218, guid: e8b9327cf5a6e634a90ba46de14ca53a,
         type: 3}
       propertyPath: m_Enabled
@@ -3909,6 +3913,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 1024
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
   steerSpeedGround: 1
   steerSpeedAir: 5
   playeRunSpeed: 15
@@ -3936,12 +3943,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 569b3b4d57b3e2a46ad3088f7f12b105, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  platformLayer:
-    serializedVersion: 2
-    m_Bits: 256
 --- !u!4 &1121374011
 Transform:
   m_ObjectHideFlags: 0
@@ -4936,7 +4937,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1418760702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5201,6 +5202,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab2f5fbc0dbb1314e9871d57774d88c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  platformLayer:
+    serializedVersion: 2
+    m_Bits: 0
   Tower1: {fileID: -7272719699769384030, guid: d5740f85d33acab4aac7c95e267cdb23, type: 3}
   Tower2: {fileID: -7272719699769384030, guid: e82513eb78a3c6543822e10a059eea71, type: 3}
   ghost_Tower1: {fileID: 267219062}

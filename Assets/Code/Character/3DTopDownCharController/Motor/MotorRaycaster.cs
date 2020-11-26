@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+//using System.Linq;
 using System.Collections;
 
 /*
@@ -13,62 +14,22 @@ public class MotorRaycaster : MonoBehaviour
     public Transform feet;
 
     //Const
-    private const float checkDist = 0.07f;
-    private const float sideNudgeDist = 0.2f;
+    private const float checkDist = 0.2f;
     
     //Cache
     private LayerMask groundLayer;
-    private Vector3 halfExtent;
-    
 
-
-    #region Properties
-    public bool IsOnGround => OnGroundCheck();
-
-    #endregion
-
-    #region MonoBehavior
-    private void Awake()
-    {
-        float half = GetComponent<Collider>().bounds.extents.x;
-        halfExtent = new Vector3(half, half, half);
-    }
 
     private void Start()
     {
         groundLayer = CharacterMotorSettings.instance.GroundLayer;
     }
 
-    //private void OnDrawGizmos()
-    //{
-    //    RaycastHit hitinfo;
-    //    bool hits = Physics.BoxCast(transform.position, halfExtent, Vector3.down, out hitinfo, transform.rotation, checkDist, groundLayer);
-    //    Debug.DrawRay(transform.position, Vector3.right * 100f, Color.yellow);
-    //    if (hits)
-    //    {
-    //        Debug.DrawRay(hitinfo.point, Vector3.right * 100f, Color.red);
-
-    //        Gizmos.DrawCube(transform.position + Vector3.down * hitinfo.distance, halfExtent * 2f);
-    //    }
-    //}
-    #endregion
-
-    #region Collision checks
-    private bool OnGroundCheck()
+    public bool OnGrounDcheck()
     {
-        return Physics.BoxCast(feet.position, halfExtent, Vector3.down, transform.rotation, checkDist, groundLayer);
-        //return Physics.BoxCast(feet.position, halfExtent, Vector3.down, out hitinfo, transform.rotation, checkDist, groundLayer);
+        //Debug.DrawRay(feet.position, Vector3.down * checkDist, Color.red);
+        return Physics.RaycastAll(feet.position, Vector3.down, checkDist, groundLayer).Length > 0;
     }
-    #endregion
-
-    #region Util
-    private RaycastHit2D Raycast(Vector2 origin, Vector2 dir, float dist, LayerMask mask, Color color)
-    {
-        
-        Debug.DrawRay(origin, dir * dist, color);
-        return Physics2D.Raycast(origin, dir, dist, mask);
-    }
-    #endregion
 }
 
 

@@ -63,13 +63,13 @@ public class PlayerMotor : MonoBehaviour
 
     private void Update()
     {
-        //currentStateClass?.TickUpdate();
+        currentStateClass?.TickUpdate();
     }
 
     private void FixedUpdate()
     {
-        status.CacheCurrentValuesToOld();
-        DoStatusCalculations();
+        status.CachePreviousStatus();
+        CalculateCurrentStatus();
 
         currentStateClass?.TickFixedUpdate();
         rb.velocity = status.currentVelocity;
@@ -85,11 +85,9 @@ public class PlayerMotor : MonoBehaviour
     #endregion
 
     #region Pre-calculations
-    private void DoStatusCalculations()
+    private void CalculateCurrentStatus()
     {
-        status.isOnGround = raycaster.IsOnGround;
-        status.moveInputSign = NumericUtil.SignAllowingZero(GameInput.MoveX);
-        status.velocityXSign = NumericUtil.SignAllowingZero(status.currentVelocity.x);
+        status.isOnGround = raycaster.OnGrounDcheck();
     }
     #endregion
 
@@ -101,8 +99,6 @@ public class PlayerMotor : MonoBehaviour
         GUI.Label(new Rect(20, 80, 290, 20), "OnGround: " + status.isOnGround);
         GUI.Label(new Rect(20, 100, 290, 20), "onGroundPrevious: " + status.isOnGroundPrevious);
         GUI.Label(new Rect(20, 120, 290, 20), "GameInput.MoveX: " + GameInput.MoveX);
-        GUI.Label(new Rect(20, 140, 290, 20), "movingSign: " + status.moveInputSign);
-        GUI.Label(new Rect(20, 160, 290, 20), "isMoving: " + status.isMoving);
         GUI.Label(new Rect(20, 180, 290, 20), "currentVelocity: " + status.currentVelocity);
 
 

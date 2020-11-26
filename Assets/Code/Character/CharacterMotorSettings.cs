@@ -8,8 +8,9 @@ public class CharacterMotorSettings : MonoBehaviour
 
     [Header("Layers")]
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private LayerMask enemyLayer;
     public LayerMask GroundLayer => groundLayer;
-
+    public LayerMask EnemyLayer => enemyLayer;
 
     [Header("Player Movement")]
     [SerializeField] private float steerSpeedGround = 1f; //50f
@@ -22,7 +23,6 @@ public class CharacterMotorSettings : MonoBehaviour
     public float PlayerRunSpeed => playeRunSpeed;
     public float PlayerMoveSpeed => playerWalkSpeed;
     public float PlayerCrawlSpeed => playerCrouchSpeed;
-
 
     [Header("Normal Jump")]
     [SerializeField] private float minJumpForce = 12f;

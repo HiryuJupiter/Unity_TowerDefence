@@ -4,13 +4,12 @@ using System.Collections;
 public class TowerGhost : MonoBehaviour
 {
     //Variables
-    Renderer renderer;
-    Material material;
+    private Renderer renderer;
+    private Material material;
+    private Color colorUnavaiable;
+    private Color colorReveal;
 
-    Color colorUnavaiable;
-    Color colorReveal;
-
-    void Awake()
+    private void Awake()
     {
         //Reference
         renderer = GetComponentInChildren<Renderer>();

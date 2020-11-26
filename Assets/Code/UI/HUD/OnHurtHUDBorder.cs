@@ -3,14 +3,14 @@ using System.Collections;
 
 public class OnHurtHUDBorder : MonoBehaviour
 {
-    [SerializeField] CanvasGroup onHurtRedFlash;
+    [SerializeField] private CanvasGroup onHurtRedFlash;
 
-    void Awake()
+    private void Awake()
     {
         onHurtRedFlash.alpha = 0f;
     }
 
-    void Update()
+    private void Update()
     {
         //Fade out the red-flashing effect when player is hurt.
         if (onHurtRedFlash.alpha > 0f)

@@ -10,13 +10,12 @@ using UnityEngine.UI;
 public class UIRendererManager : MonoBehaviour
 {
     public static UIRendererManager Instance;
-
-    HUDManager hud;
-    OnHurtHUDBorder hurtBorder;
-    HighscoreBoard highScoreBoard;
+    private HUDManager hud;
+    private OnHurtHUDBorder hurtBorder;
+    private HighscoreBoard highScoreBoard;
 
     #region MonoBehavior
-    void Awake()
+    private void Awake()
     {
         //Lazy singleton
         Instance = this;

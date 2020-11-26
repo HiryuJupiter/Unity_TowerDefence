@@ -8,10 +8,9 @@ public class PauseMenu : MonoBehaviour
 {
     public CanvasGroup canvas_Pause;
     public GameObject PauseButton;
+    private bool isPaused = false;
 
-    bool isPaused = false;
-
-    void Start()
+    private void Start()
     {
         
         SetPause(false);
@@ -31,7 +30,7 @@ public class PauseMenu : MonoBehaviour
     #endregion
 
     #region Pause logic
-    void SetPause(bool pause)
+    private void SetPause(bool pause)
     {
         //Debug.Log("Set pause " + isPaused);
         isPaused = pause;

@@ -5,12 +5,12 @@ public class Platform : MonoBehaviour
 {
     //Variables
     public bool HasTower { get; private set;}
-    Dummy tower;
 
-    Material material;
-    Color defaultColor;
+    private Dummy tower;
+    private Material material;
+    private Color defaultColor;
 
-    void Awake()
+    private void Awake()
     {
         //Reference
         material = GetComponent<Renderer>().material;

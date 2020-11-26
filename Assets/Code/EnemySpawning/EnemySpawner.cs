@@ -4,29 +4,28 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    const float WaveInterval = 6f;
+    private const float WaveInterval = 6f;
 
     //Lazy singleton
     public static EnemySpawner instance;
 
-    [SerializeField] Path[] paths;
-    [SerializeField] GameObject pf_TooManyArms;
-    [SerializeField] List<Wave> waves;
-
-    Dictionary<EnemyTypes, Pool> pools;
+    [SerializeField] private Path[] paths;
+    [SerializeField] private GameObject pf_TooManyArms;
+    [SerializeField] private List<Wave> waves;
+    private Dictionary<EnemyTypes, Pool> pools;
 
     //Status
-    int waveIndex;
-    float spawnDelay;
+    private int waveIndex;
+    private float spawnDelay;
 
     //Reference
-    GameManager gm;
+    private GameManager gm;
 
     //Property
     public bool AllWavesFinished { get; private set;}
 
     #region MonoBehavior
-    void Awake()
+    private void Awake()
     {
         //Lazy singleton
         instance = this;
@@ -38,7 +37,7 @@ public class EnemySpawner : MonoBehaviour
         };
     }
 
-    void Start()
+    private void Start()
     {
         //Reference
         gm = GameManager.Instance;
@@ -67,7 +66,7 @@ public class EnemySpawner : MonoBehaviour
     #endregion
 
     #region Private
-    void SpawnWave()
+    private void SpawnWave()
     {
         //Tell gameManager we're going into a new wave
         gm.StartWave(waveIndex + 1);
@@ -76,7 +75,7 @@ public class EnemySpawner : MonoBehaviour
         waves[waveIndex].StartWave(() => WaveComplete(), this);
     }
 
-    void WaveComplete()
+    private void WaveComplete()
     {
         //When wave is completed, delay then spawn 
         if (++waveIndex < waves.Count)
@@ -89,7 +88,7 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    IEnumerator DelayThenSpawnWave()
+    private IEnumerator DelayThenSpawnWave()
     {
         //Have a slight delay between waves. Ideally we have a timer that ticks down
         spawnDelay = WaveInterval;

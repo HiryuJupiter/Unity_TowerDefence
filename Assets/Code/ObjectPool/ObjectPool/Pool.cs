@@ -4,12 +4,12 @@ using System.Collections.Generic;
 public class Pool
 {
     //Cache
-    Vector3 offscreen = new Vector3(-1000, -1000, -1000);
+    private Vector3 offscreen = new Vector3(-1000, -1000, -1000);
 
     //Pool lists
-    List<GameObject> active = new List<GameObject>();
-    List<GameObject> inactive = new List<GameObject>();
-    [SerializeField] GameObject prefab;
+    private List<GameObject> active = new List<GameObject>();
+    private List<GameObject> inactive = new List<GameObject>();
+    [SerializeField] private GameObject prefab;
 
     //Constructor
     public Pool(GameObject prefab)

@@ -9,14 +9,14 @@ public class Settings : MonoBehaviour
     public static Settings Instance;
 
     //Exposed variables
-    [SerializeField] LayerMask enemyLayer;
-    [SerializeField] LayerMask platformLayer;
+    [SerializeField] private LayerMask enemyLayer;
+    [SerializeField] private LayerMask platformLayer;
 
     //Properties
     public LayerMask PlatformLayer => platformLayer;
     public LayerMask EnemyLayer => enemyLayer;
 
-    void Awake()
+    private void Awake()
     {
         Instance = this;
     }

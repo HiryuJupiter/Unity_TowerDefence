@@ -15,9 +15,9 @@ TagManager:
   - 
   - Platform
   - Enemy
-  - 
-  - 
-  - 
+  - Ground
+  - PlayerBody
+  - PlayerWeapon
   - 
   - 
   - 

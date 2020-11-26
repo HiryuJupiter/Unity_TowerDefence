@@ -7,15 +7,14 @@ using UnityEngine.SocialPlatforms.Impl;
 public class HUDManager : MonoBehaviour
 {
     //Exposed variables
-    [SerializeField] GameObject HUDGroup;
-    [SerializeField] Text money;
-    [SerializeField] Text wave;
-    [SerializeField] Text descriptionText;
-    [SerializeField] GameObject[] livesHUDIcons;
+    [SerializeField] private GameObject HUDGroup;
+    [SerializeField] private Text money;
+    [SerializeField] private Text wave;
+    [SerializeField] private Text descriptionText;
+    [SerializeField] private GameObject[] livesHUDIcons;
+    private ButtonBorderDisplayer borderDisplyer;
 
-    ButtonBorderDisplayer borderDisplyer;
-
-    void Awake()
+    private void Awake()
     {
         //Reference
         borderDisplyer = GetComponent<ButtonBorderDisplayer>();

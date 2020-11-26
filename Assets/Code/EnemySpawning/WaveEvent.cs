@@ -5,9 +5,9 @@ using System.Collections;
 public class WaveEvent
 {
     //Exposed variables
-    [SerializeField] EnemyTypes enemyType;
-    [SerializeField] int pathIndex;
-    [SerializeField] int amount;
+    [SerializeField] private EnemyTypes enemyType;
+    [SerializeField] private int pathIndex;
+    [SerializeField] private int amount;
 
     //Public properties
     public EnemyTypes EnemyType => enemyType;

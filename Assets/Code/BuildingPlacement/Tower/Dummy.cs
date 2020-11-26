@@ -4,13 +4,12 @@ using System.Collections.Generic;
 
 public class Dummy : MonoBehaviour
 {
-
-    void Start()
+    private void Start()
     {
 
     }
 
-    void Update()
+    private void Update()
     {
 
     }

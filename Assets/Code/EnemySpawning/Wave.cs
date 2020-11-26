@@ -7,16 +7,16 @@ using System.Collections.Generic;
 public class Wave
 {
     //Const
-    const float SpawnInterval = 0.5f;
+    private const float SpawnInterval = 0.5f;
 
     //Expose wave sequences that can be edited in Inspector
     public List<WaveEvent> waveEvents;
 
     //Cache Callback
-    Action waveCompletedCallBack;
+    private Action waveCompletedCallBack;
 
     //Reference
-    EnemySpawner spawner;
+    private EnemySpawner spawner;
 
     public void StartWave(Action waveCompletedCallBack, EnemySpawner spawner)
     {
@@ -28,7 +28,7 @@ public class Wave
         spawner.StartCoroutine(SpawnWave());
     }
 
-    IEnumerator SpawnWave()
+    private IEnumerator SpawnWave()
     {
         //Spawn each wave event (sub waves) one by one
         for (int i = 0; i < waveEvents.Count; i++)

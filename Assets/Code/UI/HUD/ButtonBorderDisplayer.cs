@@ -5,13 +5,11 @@ using System.Collections.Generic;
 public class ButtonBorderDisplayer : MonoBehaviour
 {
     //Variables
-    [SerializeField] Image[] buttonBorders;
+    [SerializeField] private Image[] buttonBorders;
+    private int currentlyRevealed = -1;
+    private Dictionary<TowerTypes, int> modeToIndexLookUp;
 
-    int currentlyRevealed = -1;
-
-    Dictionary<TowerTypes, int> modeToIndexLookUp;
-
-    void Awake()
+    private void Awake()
     {
         //Look up table
         modeToIndexLookUp = new Dictionary<TowerTypes, int>()
@@ -41,7 +39,7 @@ public class ButtonBorderDisplayer : MonoBehaviour
     }
 
     #endregion
-    void RevealButtonBorder(int buttonIndex)
+    private void RevealButtonBorder(int buttonIndex)
     {
         //Hide the currently active border then reveal the new highlight border
         HideCurrentBorder();
@@ -49,7 +47,7 @@ public class ButtonBorderDisplayer : MonoBehaviour
         SetBorderVisibility(buttonIndex, true);
     }
 
-    void HideCurrentBorder()
+    private void HideCurrentBorder()
     {
         //If we're currently in a spawning state, then a border is active and we will now deactivate it. 
         if (currentlyRevealed != -1)
@@ -59,7 +57,7 @@ public class ButtonBorderDisplayer : MonoBehaviour
         }
     }
 
-    void SetBorderVisibility(int index, bool isVisible)
+    private void SetBorderVisibility(int index, bool isVisible)
     {
         //Set border's visibility 
         buttonBorders[index].enabled = isVisible;

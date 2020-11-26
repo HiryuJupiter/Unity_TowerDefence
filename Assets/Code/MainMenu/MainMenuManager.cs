@@ -7,20 +7,19 @@ using UnityEditor;
 public class MainMenuManager : MonoBehaviour
 {
     //Const
-    const string Key_MusicVol = "Music";
-    const string Key_Master = "Master";
-    
-    const int SceneIndex_GamePlay = 1;
+    private const string Key_MusicVol = "Music";
+    private const string Key_Master = "Master";
+    private const int SceneIndex_GamePlay = 1;
 
     //Fields
-    [SerializeField] AudioMixer mixer;
-    [SerializeField] Text highScore;
-    [SerializeField] CanvasGroup MainMenu;
-    [SerializeField] CanvasGroup OptionsMenu;
-    [SerializeField] CanvasGroup AboutMenu;
+    [SerializeField] private AudioMixer mixer;
+    [SerializeField] private Text highScore;
+    [SerializeField] private CanvasGroup MainMenu;
+    [SerializeField] private CanvasGroup OptionsMenu;
+    [SerializeField] private CanvasGroup AboutMenu;
 
     //Cache
-    int highscore;
+    private int highscore;
 
     #region MonoBehavior
     private void Awake()

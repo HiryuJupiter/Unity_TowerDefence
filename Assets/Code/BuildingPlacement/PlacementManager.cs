@@ -9,35 +9,35 @@ public class PlacementManager : MonoBehaviour
     public static PlacementManager Instance;
 
     //Exposed variables
-    [SerializeField] Dummy Tower1;
-    [SerializeField] Dummy Tower2;
-    [SerializeField] TowerGhost ghost_Tower1;
-    [SerializeField] TowerGhost ghost_Tower2;
+    [SerializeField] private Dummy Tower1;
+    [SerializeField] private Dummy Tower2;
+    [SerializeField] private TowerGhost ghost_Tower1;
+    [SerializeField] private TowerGhost ghost_Tower2;
 
     //Look up
-    Dictionary<TowerTypes, Dummy> towerLookup = new Dictionary<TowerTypes, Dummy>();
-    Dictionary<TowerTypes, TowerGhost> ghostLookup = new Dictionary<TowerTypes, TowerGhost>();
+    private Dictionary<TowerTypes, Dummy> towerLookup = new Dictionary<TowerTypes, Dummy>();
+    private Dictionary<TowerTypes, TowerGhost> ghostLookup = new Dictionary<TowerTypes, TowerGhost>();
 
     //References
-    UIRendererManager ui;
-    Transform camera;
-    Settings settings;
-    EventSystem eventSystem;
+    private UIRendererManager ui;
+    private Transform camera;
+    private Settings settings;
+    private EventSystem eventSystem;
 
     //Status
-    TowerTypes towerMode;
-    Transform platformTransform;
-    RaycastHit hit;
-    TowerGhost currentGhost;
-    bool canReceiveMouseClick = true;
+    private TowerTypes towerMode;
+    private Transform platformTransform;
+    private RaycastHit hit;
+    private TowerGhost currentGhost;
+    private bool canReceiveMouseClick = true;
 
     //Cache
-    Plane invisiblePlane = new Plane(Vector3.up, new Vector3(0, 1, 0));
+    private Plane invisiblePlane = new Plane(Vector3.up, new Vector3(0, 1, 0));
 
     //property
     public bool IsInPlacementMode { get; private set; }
 
-    void Awake()
+    private void Awake()
     {
         //Lazy Singleton
         Instance = this;
@@ -60,14 +60,14 @@ public class PlacementManager : MonoBehaviour
         };
     }
 
-    void Start()
+    private void Start()
     {
         //Reference
         ui = UIRendererManager.Instance;
         settings = Settings.Instance;
     }
 
-    void Update()
+    private void Update()
     {
         //If in placement mode, then update the placement logic. 
         if (IsInPlacementMode)
@@ -87,7 +87,7 @@ public class PlacementManager : MonoBehaviour
     #endregion
 
     #region Private
-    void ExitPlacementMode()
+    private void ExitPlacementMode()
     {
         //Ghost
         SetCurrentGhostVisibility(false);
@@ -101,7 +101,7 @@ public class PlacementManager : MonoBehaviour
         
     }
 
-    void EnterPlacementMode(TowerTypes mode)
+    private void EnterPlacementMode(TowerTypes mode)
     {
         StartCoroutine(DelayMouseClickDetection());
         //UI
@@ -117,7 +117,7 @@ public class PlacementManager : MonoBehaviour
         towerMode = mode;
     }
 
-    void PlaceTower()
+    private void PlaceTower()
     {
         //Create a tower and then place it on a  platform
         Dummy tower = Instantiate(towerLookup[towerMode], platformTransform.position, Quaternion.identity);
@@ -125,7 +125,7 @@ public class PlacementManager : MonoBehaviour
     }
     #endregion
 
-    void PlacementUpdate()
+    private void PlacementUpdate()
     {
         //Mostly updates ghost position. Also for exiting mode after placing tower.
         if (HitsAnEmptyPlatform())
@@ -159,13 +159,19 @@ public class PlacementManager : MonoBehaviour
 
     #region Minor methods and helper properties
     //Expression body methods for self documenting code
-    bool PlayerPressesExitKey => (Input.GetKeyDown(KeyCode.Escape) || Input.GetMouseButtonDown(1));
-    bool HitsPlatform => Physics.Raycast(CameraToMouseRay, out hit, 100f, settings.PlatformLayer);
-    bool HitsAnyCollider => Physics.Raycast(CameraToMouseRay, out hit, 100f);
-    bool ClickedMouseToPlaceTower => canReceiveMouseClick && !IsMouseOverUI && Input.GetMouseButtonDown(0);
-    Ray CameraToMouseRay => Camera.main.ScreenPointToRay(Input.mousePosition);
-    bool IsMouseOverUI => eventSystem.IsPointerOverGameObject();
-    bool HitsAnEmptyPlatform()
+    private bool PlayerPressesExitKey => (Input.GetKeyDown(KeyCode.Escape) || Input.GetMouseButtonDown(1));
+
+    private bool HitsPlatform => Physics.Raycast(CameraToMouseRay, out hit, 100f, settings.PlatformLayer);
+
+    private bool HitsAnyCollider => Physics.Raycast(CameraToMouseRay, out hit, 100f);
+
+    private bool ClickedMouseToPlaceTower => canReceiveMouseClick && !IsMouseOverUI && Input.GetMouseButtonDown(0);
+
+    private Ray CameraToMouseRay => Camera.main.ScreenPointToRay(Input.mousePosition);
+
+    private bool IsMouseOverUI => eventSystem.IsPointerOverGameObject();
+
+    private bool HitsAnEmptyPlatform()
     {
         //If hits an empty platform, return true
         if (HitsPlatform)
@@ -178,7 +184,7 @@ public class PlacementManager : MonoBehaviour
         return false;
     }
 
-    IEnumerator DelayMouseClickDetection ()
+    private IEnumerator DelayMouseClickDetection ()
     {
         //After clicking on a UI button, do not allow detecting mouse click on the 
         //...same frame
@@ -187,8 +193,7 @@ public class PlacementManager : MonoBehaviour
         canReceiveMouseClick = true;
     }
 
-
-    void SetCurrentGhostVisibility(bool isVisible)
+    private void SetCurrentGhostVisibility(bool isVisible)
     {
         if (currentGhost != null)
         {
@@ -196,7 +201,7 @@ public class PlacementManager : MonoBehaviour
         }
     }
 
-    Vector3 MousePositionOnInvisiblePlane()
+    private Vector3 MousePositionOnInvisiblePlane()
     {
         Ray ray = CameraToMouseRay;
         float distance;
@@ -204,7 +209,7 @@ public class PlacementManager : MonoBehaviour
         return ray.GetPoint(distance);
     }
 
-    void SetGhostPlacementAvailability(bool canPlace)
+    private void SetGhostPlacementAvailability(bool canPlace)
     {
         if (currentGhost != null)
         {

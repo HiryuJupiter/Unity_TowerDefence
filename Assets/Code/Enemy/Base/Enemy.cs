@@ -4,18 +4,18 @@ using UnityEngine;
 //Base class for enemies
 public abstract class Enemy : PoolObject
 {
-    [SerializeField] float moveSpeed = 1f;
-    [SerializeField] int hp = 1;
-    [SerializeField] int reward = 100;
+    [SerializeField] private float moveSpeed = 1f;
+    [SerializeField] private int hp = 1;
+    [SerializeField] private int reward = 100;
 
     //Status
-    int waypointIndex;
-    Vector3 nextWaypointPos;
-    bool reachedEnd;
+    private int waypointIndex;
+    private Vector3 nextWaypointPos;
+    private bool reachedEnd;
 
     //Reference
-    Path path;
-    GameManager gm;
+    private Path path;
+    private GameManager gm;
 
     //Property
     public float Reward => reward;
@@ -60,7 +60,7 @@ public abstract class Enemy : PoolObject
         }
     }
     #endregion
-    void MoveAlongPath()
+    private void MoveAlongPath()
     {
         //Move along path while haven't reached the end.
         if (!reachedEnd)
@@ -81,7 +81,7 @@ public abstract class Enemy : PoolObject
         }
     }
 
-    void ReachedCurrentWaypoint()
+    private void ReachedCurrentWaypoint()
     {
         //Increment waypoint
         if (++waypointIndex >= path.WaypointCount)
@@ -100,8 +100,11 @@ public abstract class Enemy : PoolObject
     }
 
     //Expression body methods for self documenting code
-    Quaternion RotationToNext => Quaternion.LookRotation(DirectionToNext, Vector3.up);
-    Vector3 CurrentWaypointPosition => path.GetWaypointPosition(waypointIndex);
-    bool ArrivedAtWaypoint => Vector3.Distance(transform.position, nextWaypointPos) < 0.01f;
-    Vector3 DirectionToNext => nextWaypointPos - transform.position;
+    private Quaternion RotationToNext => Quaternion.LookRotation(DirectionToNext, Vector3.up);
+
+    private Vector3 CurrentWaypointPosition => path.GetWaypointPosition(waypointIndex);
+
+    private bool ArrivedAtWaypoint => Vector3.Distance(transform.position, nextWaypointPos) < 0.01f;
+
+    private Vector3 DirectionToNext => nextWaypointPos - transform.position;
 }

@@ -3,7 +3,7 @@ using System.Collections;
 
 public static class HighScore
 {
-    const string Key_HighScore = "HighScore";
+    private const string Key_HighScore = "HighScore";
 
     public static void SaveHighscore (int score)
     {

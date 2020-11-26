@@ -5,13 +5,12 @@ using System.Collections;
 //A UI-subordinate script for handing highscore board related logic
 public class HighscoreBoard : MonoBehaviour
 {
-    [SerializeField] GameObject highscoreBoard;
-    [SerializeField] Text highscoreText;
-    [SerializeField] GameObject newHighScoreMessage;
+    [SerializeField] private GameObject highscoreBoard;
+    [SerializeField] private Text highscoreText;
+    [SerializeField] private GameObject newHighScoreMessage;
+    private int highscore;
 
-    int highscore;
-
-    void Awake()
+    private void Awake()
     {
         //Hide board
         highscoreBoard.SetActive(false);
@@ -27,7 +26,7 @@ public class HighscoreBoard : MonoBehaviour
         StartCoroutine(PlayHighscoreAnimation());
     }
 
-    IEnumerator PlayHighscoreAnimation ()
+    private IEnumerator PlayHighscoreAnimation ()
     {
         //Tick and increase the highscore text from 0 to the current score
         float score = 0;
@@ -44,7 +43,7 @@ public class HighscoreBoard : MonoBehaviour
         highscoreText.text = $"{(int)highscore:0000}";
     }
 
-    void CheckIfNewHighscore(int score)
+    private void CheckIfNewHighscore(int score)
     {
         //Load previous highscore
         int prevHighscore = HighScore.LoadHighScore();

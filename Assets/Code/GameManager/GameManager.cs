@@ -5,37 +5,38 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     //Consts
-    const int SceneIndex_MainMenu = 0;
-    const int StartingHealth = 3; //Max health
-    const int StartingMoney = 100; 
+    private const int SceneIndex_MainMenu = 0;
+    private const int StartingHealth = 3; //Max health
+    private const int StartingMoney = 100; 
 
     //Lazy singleton
     public static GameManager Instance;
 
     //Exposed variables
-    [SerializeField] PauseMenu pauseMenu;
+    [SerializeField] private PauseMenu pauseMenu;
 
     //References
-    PlacementManager towerPlacer;
-    UIRendererManager ui;
+    private PlacementManager towerPlacer;
+    private UIRendererManager ui;
 
     //Stats
-    int wavesCompleted;
-    int money = StartingMoney;
-    int lives = StartingHealth;
+    private int wavesCompleted;
+    private int money = StartingMoney;
+    private int lives = StartingHealth;
 
     //Properties
     public static GameStates gameState { get; private set; } = GameStates.Standby;
-    bool IsInPlacementMode => towerPlacer.IsInPlacementMode;
+
+    private bool IsInPlacementMode => towerPlacer.IsInPlacementMode;
 
     #region MonoBehavior
-    void Awake()
+    private void Awake()
     {
         //Lazy singleton
         Instance = this;
     }
 
-    void Start()
+    private void Start()
     {
         //Reference
         ui = UIRendererManager.Instance;
@@ -47,7 +48,7 @@ public class GameManager : MonoBehaviour
         ui.DisplayMoney(money);
     }
 
-    void Update()
+    private void Update()
     {
         //Debugs
         if (Input.GetKeyDown(KeyCode.H))
@@ -118,7 +119,7 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    void GameOver()
+    private void GameOver()
     {
         //Tell ui manager we're done and let it decide how to clean up the interface
         ui.GameOver(wavesCompleted);

@@ -3,13 +3,14 @@ using System.Collections.Generic;
 
 public class Pool
 {
+    [SerializeField] private GameObject prefab;
+
     //Cache
     private Vector3 offscreen = new Vector3(-1000, -1000, -1000);
 
     //Pool lists
-    private List<GameObject> active = new List<GameObject>();
-    private List<GameObject> inactive = new List<GameObject>();
-    [SerializeField] private GameObject prefab;
+    private List<GameObject> inactives = new List<GameObject>();
+    public List<GameObject> actives { get; private set; } = new List<GameObject>();
 
     //Constructor
     public Pool(GameObject prefab)
@@ -21,19 +22,19 @@ public class Pool
     public GameObject Spawn()
     {
         GameObject p;
-        if (inactive.Count > 0)
+        if (inactives.Count > 0)
         {
             //If object pool is not empty, then take an object from the pool and make it active
-            p = inactive[0];
+            p = inactives[0];
             p.SetActive(true);
-            inactive.RemoveAt(0);
+            inactives.RemoveAt(0);
         }
         else
         {
             //If object pool is empty, then spawn a new object.
             p = GameObject.Instantiate(prefab, offscreen, Quaternion.identity);
             p.GetComponent<PoolObject>().SetPool(this);
-            active.Add(p);
+            actives.Add(p);
         }
         return p;
     }
@@ -42,8 +43,8 @@ public class Pool
     {
         //Return to pool
         obj.transform.position = offscreen;
-        inactive.Add(obj);
-        active.Remove(obj);
+        inactives.Add(obj);
+        actives.Remove(obj);
         obj.SetActive(false);
     }
 }

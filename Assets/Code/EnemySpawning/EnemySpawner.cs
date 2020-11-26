@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,6 +24,7 @@ public class EnemySpawner : MonoBehaviour
 
     //Property
     public bool AllWavesFinished { get; private set;}
+    public List<Transform> AllEnemies { get; private set; }
 
     #region MonoBehavior
     private void Awake()
@@ -36,13 +38,22 @@ public class EnemySpawner : MonoBehaviour
             { EnemyTypes.TooManyArms, new Pool(pf_TooManyArms)},
         };
     }
-
     private void Start()
     {
         //Reference
         gm = GameManager.Instance;
         StartLevel();
     }
+
+    private void Update()
+    {
+        UpdateAllEnemies();
+    }
+
+    //private void OnGUI()
+    //{
+    //    GUI.Label(new Rect(20, 500, 200, 20), "AllEnemies.count " + AllEnemies.Count());
+    //}
     #endregion
 
     #region Public
@@ -63,6 +74,49 @@ public class EnemySpawner : MonoBehaviour
         spawnDelay = 0f;
     }
 
+    public void UpdateAllEnemies ()
+    {
+        AllEnemies = pools.SelectMany(pool => pool.Value.actives).Select(go => go.transform).ToList();
+    }
+
+    public bool TryGetClosestEnemyToPositionBad (Vector3 position, out Enemy closestEnemy)
+    {
+        closestEnemy = null;
+        if (AllEnemies.Count > 0)
+        {
+            Transform closestTrans = AllEnemies[0];
+            float closestDist = Vector3.SqrMagnitude(position - closestTrans.position);
+
+            foreach (var e in AllEnemies)
+            {
+                float d = Vector3.SqrMagnitude(position - e.position);
+                if (d < closestDist)
+                {
+                    closestDist = d;
+                    closestTrans = e;
+                }
+            }
+
+            closestEnemy = closestTrans.GetComponent<Enemy>();
+            return true;
+        }
+        return false;
+    }
+
+    public bool TryGetClosestEnemyToPosition2(Vector3 position, out Enemy closestEnemy)
+    {
+        closestEnemy = null;
+        if (AllEnemies.Count > 0)
+        {
+            float closestDist = float.MaxValue;
+            Transform closestTrans = AllEnemies[0];
+
+
+            closestEnemy = closestTrans.GetComponent<Enemy>();
+            return true;
+        }
+        return false;
+    }
     #endregion
 
     #region Private

@@ -24,7 +24,7 @@ public class EnemySpawner : MonoBehaviour
 
     //Property
     public bool AllWavesFinished { get; private set;}
-    public List<Transform> AllEnemies { get; private set; }
+    public List<Transform> allEnemyPositions { get; private set; }
 
     #region MonoBehavior
     private void Awake()
@@ -76,41 +76,26 @@ public class EnemySpawner : MonoBehaviour
 
     public void UpdateAllEnemies ()
     {
-        AllEnemies = pools.SelectMany(pool => pool.Value.actives).Select(go => go.transform).ToList();
+        allEnemyPositions = pools.SelectMany(pool => pool.Value.actives).Select(go => go.transform).ToList();
     }
 
-    public bool TryGetClosestEnemyToPositionBad (Vector3 position, out Enemy closestEnemy)
+    public bool TryGetClosestEnemyToPosition (Vector3 position, out Enemy closestEnemy)
     {
         closestEnemy = null;
-        if (AllEnemies.Count > 0)
+        if (allEnemyPositions.Count > 0)
         {
-            Transform closestTrans = AllEnemies[0];
+            Transform closestTrans = allEnemyPositions[0];
             float closestDist = Vector3.SqrMagnitude(position - closestTrans.position);
 
-            foreach (var e in AllEnemies)
+            for (int i = 1; i < allEnemyPositions.Count; i++)
             {
-                float d = Vector3.SqrMagnitude(position - e.position);
+                float d = Vector3.SqrMagnitude(position - allEnemyPositions[i].position);
                 if (d < closestDist)
                 {
                     closestDist = d;
-                    closestTrans = e;
+                    closestTrans = allEnemyPositions[i];
                 }
             }
-
-            closestEnemy = closestTrans.GetComponent<Enemy>();
-            return true;
-        }
-        return false;
-    }
-
-    public bool TryGetClosestEnemyToPosition2(Vector3 position, out Enemy closestEnemy)
-    {
-        closestEnemy = null;
-        if (AllEnemies.Count > 0)
-        {
-            float closestDist = float.MaxValue;
-            Transform closestTrans = AllEnemies[0];
-
 
             closestEnemy = closestTrans.GetComponent<Enemy>();
             return true;

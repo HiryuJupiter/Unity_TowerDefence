@@ -52,7 +52,7 @@ public abstract class Enemy : PoolObject
     public void TakeDamage(int damage)
     {
         //Reduce health. If runs out of hp, add money and return to pool
-        hp -= damage;
+        hp -= 10000000; //Just instantly kill since this is just a prototype
         if (hp <= 0)
         {
             gm.AddMoney(reward);

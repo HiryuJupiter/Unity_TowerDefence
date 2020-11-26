@@ -9,13 +9,13 @@ public class PlacementManager : MonoBehaviour
     public static PlacementManager Instance;
 
     //Exposed variables
-    [SerializeField] private Dummy Tower1;
-    [SerializeField] private Dummy Tower2;
+    [SerializeField] private BasicTower Tower1;
+    [SerializeField] private BasicTower Tower2;
     [SerializeField] private TowerGhost ghost_Tower1;
     [SerializeField] private TowerGhost ghost_Tower2;
 
     //Look up
-    private Dictionary<TowerTypes, Dummy> towerLookup = new Dictionary<TowerTypes, Dummy>();
+    private Dictionary<TowerTypes, BasicTower> towerLookup = new Dictionary<TowerTypes, BasicTower>();
     private Dictionary<TowerTypes, TowerGhost> ghostLookup = new Dictionary<TowerTypes, TowerGhost>();
 
     //References
@@ -47,7 +47,7 @@ public class PlacementManager : MonoBehaviour
         eventSystem = EventSystem.current;
 
         //Initialize
-        towerLookup = new Dictionary<TowerTypes, Dummy>()
+        towerLookup = new Dictionary<TowerTypes, BasicTower>()
         {
             {TowerTypes.Tower1, Tower1 },
             {TowerTypes.Tower2, Tower2 },
@@ -120,7 +120,7 @@ public class PlacementManager : MonoBehaviour
     private void PlaceTower()
     {
         //Create a tower and then place it on a  platform
-        Dummy tower = Instantiate(towerLookup[towerMode], platformTransform.position, Quaternion.identity);
+        BasicTower tower = Instantiate(towerLookup[towerMode], platformTransform.position, Quaternion.identity);
         platformTransform.GetComponent<Platform>().PlaceTower(tower);
     }
     #endregion

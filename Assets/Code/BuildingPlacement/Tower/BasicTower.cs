@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Dummy : MonoBehaviour
+public class BasicTower : MonoBehaviour
 {
     private void Start()
     {

@@ -6,7 +6,7 @@ public class Platform : MonoBehaviour
     //Variables
     public bool HasTower { get; private set;}
 
-    private Dummy tower;
+    private BasicTower tower;
     private Material material;
     private Color defaultColor;
 
@@ -17,7 +17,7 @@ public class Platform : MonoBehaviour
         defaultColor = material.color;
     }
 
-    public void PlaceTower (Dummy tower)
+    public void PlaceTower (BasicTower tower)
     {
         //When a tower is placed, set the platform to grey color
         this.tower = tower;

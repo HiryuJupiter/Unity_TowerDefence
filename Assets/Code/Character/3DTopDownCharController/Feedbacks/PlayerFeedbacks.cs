@@ -16,6 +16,8 @@ public class PlayerFeedbacks : MonoBehaviour
     private void Awake()
     {
         Animator = GetComponent<Player3DAnimator>();
+
+        //Cache the scales 
         faceRightScale = transform.localScale;
         faceLeftScale = faceRightScale;
         faceLeftScale.x *= -1f;

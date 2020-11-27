@@ -76,11 +76,13 @@ public class EnemySpawner : MonoBehaviour
 
     public void UpdateAllEnemies ()
     {
+        //Cache all enemy positions
         allEnemyPositions = pools.SelectMany(pool => pool.Value.actives).Select(go => go.transform).ToList();
     }
 
     public bool TryGetClosestEnemyToPosition (Vector3 position, out Enemy closestEnemy)
     {
+        //Loop thorugh all enemies and find the closest one
         closestEnemy = null;
         if (allEnemyPositions.Count > 0)
         {

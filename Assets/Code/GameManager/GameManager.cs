@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     private const int StartingHealth = 3; //Max health
     private const int StartingMoney = 100; 
 
-    //Lazy singleton
+    //Static
     public static GameManager Instance;
 
     //Exposed variables
@@ -26,7 +26,6 @@ public class GameManager : MonoBehaviour
 
     //Properties
     public static GameStates gameState { get; private set; } = GameStates.Standby;
-
     private bool IsInPlacementMode => towerPlacer.IsInPlacementMode;
 
     #region MonoBehavior
@@ -56,7 +55,9 @@ public class GameManager : MonoBehaviour
             ReduceLife();
         }
         if (Input.GetKeyDown(KeyCode.M))
+        {
             AddMoney(100);
+        }
 
         //Toggle pause when player pressed Escape
         if (!IsInPlacementMode && (Input.GetKeyDown(KeyCode.Escape)))

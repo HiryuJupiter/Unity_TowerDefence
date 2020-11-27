@@ -52,8 +52,6 @@ public class Player3DAnimator : MonoBehaviour
     }
     public void PlayAttack()
     {
-
-        Debug.Log(" pressed attack");
         ChangeAnimationState(attackParamID);
     }
 
@@ -64,6 +62,7 @@ public class Player3DAnimator : MonoBehaviour
 
     private void ChangeAnimationState(int newState)
     {
+        //Change to new animation state only if it's a different one
         if (currentState != newState)
         {
             animator.Play(newState);

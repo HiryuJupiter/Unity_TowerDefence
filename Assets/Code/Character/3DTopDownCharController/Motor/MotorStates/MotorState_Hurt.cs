@@ -17,7 +17,6 @@ public class MotorState_Hurt : MotorStateBase
     {
         base.StateEntry();
         //feedback.Animator.PlayHurt();
-        
 
         //Apply knockback
         //int directionalSign = (int)Mathf.Sign(motor.transform.position.x - motorStatus.lastEnemyPosition.x);
@@ -28,8 +27,6 @@ public class MotorState_Hurt : MotorStateBase
         ////Exit hurt state after a certain duration
         //motor.StartCoroutine(ExitHurtState());
     }
-
-
     public override void TickUpdate()
     {
         base.TickUpdate();

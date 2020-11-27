@@ -11,7 +11,7 @@ public class Module_BasicAttack : ModuleBase
 
 	public override void TickUpdate()
 	{
-		if (Input.GetMouseButtonDown(0))
+		if (Input.GetMouseButtonDown(0) && !CursorManager.IsMouseOverUI)
 		{
 			feedback.Animator.PlayAttack();
 			motorStatus.SetAttackAnimationTimer(motor, AttackDuration);

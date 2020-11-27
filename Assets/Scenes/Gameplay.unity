@@ -1596,7 +1596,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &587147231
@@ -3220,6 +3220,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CouCou
+      objectReference: {fileID: 0}
+    - target: {fileID: 1831785032463465867, guid: e8b9327cf5a6e634a90ba46de14ca53a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1913009532990875422, guid: e8b9327cf5a6e634a90ba46de14ca53a,
         type: 3}
@@ -5099,7 +5104,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1418760702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5253,7 +5258,15 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'The main character is
 
-    just decoration'
+    just for decoration!
+
+
+    WSAD to move
+
+    Space
+    to jump
+
+    LMB to attack'
 --- !u!222 &1478426124
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5939,6 +5952,7 @@ GameObject:
   - component: {fileID: 1626075011}
   - component: {fileID: 1626075010}
   - component: {fileID: 1626075012}
+  - component: {fileID: 1626075013}
   m_Layer: 0
   m_Name: '#UIOutputManager'
   m_TagString: Untagged
@@ -6049,6 +6063,18 @@ MonoBehaviour:
   highscoreBoard: {fileID: 1865470962}
   highscoreText: {fileID: 896705225}
   newHighScoreMessage: {fileID: 1192570708}
+--- !u!114 &1626075013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1626075005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9eeb9fefe67f46d4a9eeeeae9b358e3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1636320934
 PrefabInstance:
   m_ObjectHideFlags: 0

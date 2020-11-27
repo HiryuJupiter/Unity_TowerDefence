@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.EventSystems;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -22,7 +21,6 @@ public class PlacementManager : MonoBehaviour
     //References
     private UIRendererManager ui;
     private Transform camera;
-    private EventSystem eventSystem;
 
     //Status
     private TowerTypes towerMode;
@@ -44,7 +42,6 @@ public class PlacementManager : MonoBehaviour
 
         //Refernce
         camera = Camera.main.transform;
-        eventSystem = EventSystem.current;
 
         //Initialize
         towerLookup = new Dictionary<TowerTypes, BasicTower>()
@@ -164,11 +161,11 @@ public class PlacementManager : MonoBehaviour
 
     private bool HitsAnyCollider => Physics.Raycast(CameraToMouseRay, out hit, 100f);
 
-    private bool ClickedMouseToPlaceTower => canReceiveMouseClick && !IsMouseOverUI && Input.GetMouseButtonDown(0);
+    private bool ClickedMouseToPlaceTower => canReceiveMouseClick && !CursorManager.IsMouseOverUI && Input.GetMouseButtonDown(0);
 
     private Ray CameraToMouseRay => Camera.main.ScreenPointToRay(Input.mousePosition);
 
-    private bool IsMouseOverUI => eventSystem.IsPointerOverGameObject();
+    
 
     private bool HitsAnEmptyPlatform()
     {

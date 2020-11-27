@@ -12,7 +12,6 @@ public class MotorState_MoveOnGround : MotorStateBase
             new Module_Jump(motor, feedback),
             new Module_BasicAttack(motor, feedback),
         };
-
     }
 
     public override void StateEntry()

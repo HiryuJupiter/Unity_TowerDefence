@@ -11,19 +11,19 @@ public class MotorState_Aerial : MotorStateBase
             new Module_Gravity(motor, feedbacks),
             new Module_MoveInAir(motor, feedbacks),
             new Module_Jump(motor, feedbacks),
+            new Module_BasicAttack(motor, feedback),
         };
     }
 
     public override void StateEntry()
     {
         base.StateEntry();
-        feedback.Animator.PlayAerial();
+        feedback.Animator.PlayJump();
     }
 
     public override void TickUpdate()
     {
         base.TickUpdate();
-        feedback.Animator.SetFloat_YVelocity(motorStatus.currentVelocity.y);
     }
 
     protected override void Transitions()

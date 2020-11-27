@@ -18,61 +18,51 @@ public class Player3DAnimator : MonoBehaviour
     private int currentState;
 
     //Parameter ID for states
-    private int crouchParamID;
-    private int onGroundParamID;
-    private int aerialParamID;
-    private int hurtParamID;
-    private int xVelocityParamID;
-    private int yVelocityParamID;
+    private int jumpParamID;
+    private int idleParamID;
+    private int walkParamID;
+    private int attackParamID;
+
+    bool inAttack;
 
     #region Mono
     private void Awake()
     {
         animator = GetComponentInChildren<Animator>();
 
-        //Param ID: Floats
-        xVelocityParamID = Animator.StringToHash("HorizontalVelocity");
-        yVelocityParamID = Animator.StringToHash("VerticalVelocity");
-
         //Param ID: Booleans
-        crouchParamID   = Animator.StringToHash("Crouch");
-        onGroundParamID = Animator.StringToHash("OnGround");
-        aerialParamID   = Animator.StringToHash("Aerial");
-        hurtParamID     = Animator.StringToHash("Hurt");
+        jumpParamID = Animator.StringToHash("Jump");
+        idleParamID = Animator.StringToHash("Idle");
+        walkParamID = Animator.StringToHash("Walk");
+        attackParamID = Animator.StringToHash("Attack");
     }
     #endregion
 
-    public void PlayOnGround ()
+    public void PlayIdle()
     {
-        ChangeAnimationState(onGroundParamID);
+        if (!inAttack)
+        {
+            ChangeAnimationState(idleParamID);
+        }
     }
 
-    public void PlayAerial()
+    public void PlayJump()
     {
-        ChangeAnimationState(aerialParamID);
+        //ChangeAnimationState(jumpParamID);
+    }
+    public void PlayAttack()
+    {
+
+        Debug.Log(" pressed attack");
+        ChangeAnimationState(attackParamID);
     }
 
-    public void PlayHurt()
+    public void PlayWalk()
     {
-        ChangeAnimationState(hurtParamID);
+        ChangeAnimationState(walkParamID);
     }
 
-    public void PlayCrouch()
-    {
-        ChangeAnimationState(crouchParamID);
-    }
-
-    public void SetFloat_XVelocity(float xVelocity)
-    {
-        animator.SetFloat(xVelocityParamID, xVelocity);
-    }
-
-    public void SetFloat_YVelocity(float yVelocity)
-    {
-        animator.SetFloat(yVelocityParamID, yVelocity);
-    }
-
-    private void ChangeAnimationState (int newState)
+    private void ChangeAnimationState(int newState)
     {
         if (currentState != newState)
         {
@@ -81,12 +71,12 @@ public class Player3DAnimator : MonoBehaviour
         }
     }
 
-    private float GetCurrentAnimationDuration ()
+    private float GetCurrentAnimationDuration()
     {
         return animator.GetCurrentAnimatorStateInfo(0).length;
     }
 
-    private IEnumerator DelayedTransitionToAnimation (float delay, int newAnimationParamID)
+    private IEnumerator DelayedTransitionToAnimation(float delay, int newAnimationParamID)
     {
         yield return new WaitForSeconds(delay);
         animator.Play(newAnimationParamID);

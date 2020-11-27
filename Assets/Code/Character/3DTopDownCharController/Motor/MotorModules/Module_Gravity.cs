@@ -19,7 +19,6 @@ public class Module_Gravity : ModuleBase
         else
         {
 
-            Debug.Log(" Applying gravity ");
             motorStatus.currentVelocity.y -= settings.Gravity * Time.deltaTime;
             motorStatus.currentVelocity.y = Mathf.Clamp(motorStatus.currentVelocity.y, settings.MaxFallSpeed, motorStatus.currentVelocity.y);
         }

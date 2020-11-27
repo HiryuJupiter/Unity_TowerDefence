@@ -16,17 +16,17 @@ public class MotorState_Hurt : MotorStateBase
     public override void StateEntry()
     {
         base.StateEntry();
-        feedback.Animator.PlayHurt();
+        //feedback.Animator.PlayHurt();
         
 
         //Apply knockback
-        int directionalSign = (int)Mathf.Sign(motor.transform.position.x - motorStatus.lastEnemyPosition.x);
-        Vector2 knockBack = settings.HurtDirection;
-        knockBack.x *= directionalSign;
-        motorStatus.currentVelocity = knockBack;
+        //int directionalSign = (int)Mathf.Sign(motor.transform.position.x - motorStatus.lastEnemyPosition.x);
+        //Vector2 knockBack = settings.HurtDirection;
+        //knockBack.x *= directionalSign;
+        //motorStatus.currentVelocity = knockBack;
 
-        //Exit hurt state after a certain duration
-        motor.StartCoroutine(ExitHurtState());
+        ////Exit hurt state after a certain duration
+        //motor.StartCoroutine(ExitHurtState());
     }
 
 
@@ -42,7 +42,7 @@ public class MotorState_Hurt : MotorStateBase
 
     public override void StateExit ()
     {
-        feedback.Animator.PlayHurt();
+        //feedback.Animator.PlayHurt();
     }
 
     private IEnumerator ExitHurtState()

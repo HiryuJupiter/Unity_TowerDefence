@@ -10,6 +10,7 @@ public class MotorState_MoveOnGround : MotorStateBase
             new Module_Gravity(motor, feedback),
             new Module_MoveOnGround(motor, feedback),
             new Module_Jump(motor, feedback),
+            new Module_BasicAttack(motor, feedback),
         };
 
     }
@@ -17,14 +18,11 @@ public class MotorState_MoveOnGround : MotorStateBase
     public override void StateEntry()
     {
         base.StateEntry();
-
-        feedback.Animator.PlayOnGround();
     }
 
     public override void TickUpdate()
     {
         base.TickUpdate();
-        feedback.Animator.SetFloat_XVelocity(Mathf.Abs(motorStatus.currentVelocity.x));
     }
 
     protected override void Transitions()

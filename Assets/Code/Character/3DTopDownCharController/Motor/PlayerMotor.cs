@@ -49,7 +49,7 @@ public class PlayerMotor : MonoBehaviour
         {
             {MotorStates.OnGround,  new MotorState_MoveOnGround(this, Feedbacks)},
             {MotorStates.Aerial,    new MotorState_Aerial(this, Feedbacks)},
-            {MotorStates.Hurt,      new MotorState_Hurt(this, Feedbacks)},
+            //{MotorStates.Hurt,      new MotorState_Hurt(this, Feedbacks)},
         };
 
         currentStateType = MotorStates.OnGround;
@@ -72,15 +72,22 @@ public class PlayerMotor : MonoBehaviour
         CalculateCurrentStatus();
 
         currentStateClass?.TickFixedUpdate();
-        rb.velocity = status.currentVelocity;
+        rb.velocity = transform.TransformDirection(status.currentVelocity);
     }
     #endregion
 
     #region Public 
     public void DamagePlayer(Vector2 enemyPos)
     {
-        status.lastEnemyPosition = enemyPos;
-        SwitchToNewState(MotorStates.Hurt);
+        //status.lastEnemyPosition = enemyPos;
+        //SwitchToNewState(MotorStates.Hurt);
+    }
+
+    public void RotateCharacter (float amount)
+    {
+        Quaternion q = Quaternion.AngleAxis(amount, Vector3.up);
+        var targetRot = rb.rotation * q;
+        rb.rotation = targetRot;
     }
     #endregion
 
@@ -107,6 +114,10 @@ public class PlayerMotor : MonoBehaviour
         GUI.Label(new Rect(200, 40, 290, 20), "jumpQueueTimer: " + status.jumpQueueTimer);
         GUI.Label(new Rect(200, 60, 290, 20), "GameInput.JumpBtnDown: " + GameInput.JumpBtnDown);
         GUI.Label(new Rect(200, 80, 290, 20), "jumping: " + status.isJumping);
+
+        GUI.Label(new Rect(400, 0, 290, 20), "=== INPUT === ");
+        GUI.Label(new Rect(400, 20, 290, 20), "MoveX: " + GameInput.MoveX);
+        GUI.Label(new Rect(400, 40, 290, 20), "MoveZ: " + GameInput.MoveZ);
 
         //GUI.Label(new Rect(300, 120,		290, 20), "testLocation: " + testLocation);
     }

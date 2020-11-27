@@ -5,16 +5,14 @@ using UnityEngine;
 public class Module_BasicAttack : ModuleBase
 {
 	const float AttackDuration = 0.5f;
-	public Module_BasicAttack(PlayerMotor motor, PlayerFeedbacks feedback) : base(motor, feedback)
-	{
-	}
+	public Module_BasicAttack(PlayerTopDown3DController motor, PlayerFeedbacks feedback) : base(motor, feedback) {}
 
 	public override void TickUpdate()
 	{
 		if (Input.GetMouseButtonDown(0) && !CursorManager.IsMouseOverUI)
 		{
 			feedback.Animator.PlayAttack();
-			motorStatus.SetAttackAnimationTimer(motor, AttackDuration);
+			status.SetAttackAnimationTimer(player, AttackDuration);
 		}
 	}
 }

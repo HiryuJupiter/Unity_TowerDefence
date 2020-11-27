@@ -2,9 +2,9 @@
 using System.Collections;
 
 [DefaultExecutionOrder(-9000)] 
-public class CharacterMotorSettings : MonoBehaviour
+public class CharacterSettings : MonoBehaviour
 {
-    public static CharacterMotorSettings instance { get; private set; }
+    public static CharacterSettings instance { get; private set; }
 
     [Header("Layers")]
     [SerializeField] private LayerMask groundLayer;

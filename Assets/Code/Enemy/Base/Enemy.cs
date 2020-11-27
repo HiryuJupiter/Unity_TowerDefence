@@ -16,6 +16,7 @@ public abstract class Enemy : PoolObject
     //Reference
     private Path path;
     private GameManager gm;
+    private PfxManager pfx;
 
     //Property
     public float Reward => reward;
@@ -26,6 +27,7 @@ public abstract class Enemy : PoolObject
     {
         //Reference
         gm = GameManager.Instance;
+        pfx = PfxManager.Instance;
     }
 
     protected virtual void Update()
@@ -36,7 +38,7 @@ public abstract class Enemy : PoolObject
     #endregion
 
     #region Public
-    public void Initialize(Path path)
+    public void SetPath(Path path)
     {
         //Reset all values
         this.path = path;
@@ -53,6 +55,9 @@ public abstract class Enemy : PoolObject
     {
         //Reduce health. If runs out of hp, add money and return to pool
         hp -= 10000000; //Just instantly kill since this is just a prototype
+        pfx.SpawnPfx_EnemyHurt(transform.position);
+        SfxPlayer.instance.Play_EnemyHurt();
+
         if (hp <= 0)
         {
             gm.AddMoney(reward);
@@ -87,7 +92,7 @@ public abstract class Enemy : PoolObject
         if (++waypointIndex >= path.WaypointCount)
         {
             //If we reached the end of path and hits player base, then reduce life
-            Debug.Log("Reached end");
+
             gm.ReduceLife();
             reachedEnd = true;
             ReturnToPool();

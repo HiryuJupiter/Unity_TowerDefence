@@ -8,7 +8,7 @@ public class PauseMenu : MonoBehaviour
 {
     public CanvasGroup canvas_Pause;
     public GameObject PauseButton;
-    private bool isPaused = false;
+    public bool isPaused { get; private set; }
 
     private void Start()
     {

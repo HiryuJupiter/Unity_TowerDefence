@@ -5,29 +5,33 @@ using UnityEngine;
 
 public class test : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        int[] array = { 1, 2, 3, 4, 5 };
-        int result = array.Aggregate((a, b) => b + a);
-        // 1 + 2 = 3
-        // 3 + 3 = 6
-        // 6 + 4 = 10
-        // 10 + 5 = 15
-        Debug.Log(result);
-
-        int[] array2= { 1, 2, 3, 4, 5 };
-        int result2 = array.Aggregate((a, b) => a + b);
-        // 1 + 2 = 3
-        // 3 + 3 = 6
-        // 6 + 4 = 10
-        // 10 + 5 = 15
-        Debug.Log(result2);
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            SetFacing(Quaternion.LookRotation(Vector3.left, Vector3.up));
+
+            Debug.Log("1 :");
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            Debug.Log("2 :");
+            SetFacing(Quaternion.LookRotation(Vector3.right, Vector3.up));
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            Debug.Log("3 :");
+            SetFacing(Quaternion.LookRotation(Vector3.up, Vector3.up));
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            Debug.Log("4 :");
+            SetFacing(Quaternion.LookRotation(Vector3.down, Vector3.up));
+        }
+    }
+
+    public void SetFacing(Quaternion facing)
+    {
+        transform.localRotation = facing;
     }
 }

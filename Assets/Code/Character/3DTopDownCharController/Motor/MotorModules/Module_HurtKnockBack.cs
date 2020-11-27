@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Module_HurtKnockBack : ModuleBase
 {
-    public Module_HurtKnockBack(PlayerMotor motor, PlayerFeedbacks feedback) : base(motor, feedback)
+    public Module_HurtKnockBack(PlayerTopDown3DController motor, PlayerFeedbacks feedback) : base(motor, feedback)
     { }
 
     private float moveXSmoothDampVelocity;

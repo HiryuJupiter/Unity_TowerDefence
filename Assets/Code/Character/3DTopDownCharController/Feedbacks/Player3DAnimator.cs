@@ -13,6 +13,7 @@ coolhotkey: alt + arrow to shift lines
  */
 public class Player3DAnimator : MonoBehaviour
 {
+
     //Component reference
     private Animator animator;
     private int currentState;
@@ -45,6 +46,8 @@ public class Player3DAnimator : MonoBehaviour
             ChangeAnimationState(idleParamID);
         }
     }
+
+ 
 
     public void PlayJump()
     {

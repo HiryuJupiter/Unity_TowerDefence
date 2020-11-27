@@ -5,21 +5,21 @@ using System.Collections.Generic;
 [RequireComponent(typeof(Module_Jump))]
 public abstract class MotorStateBase
 {
-    protected CharacterMotorSettings      settings;
-    protected PlayerMotor     motor;
+    protected CharacterSettings      settings;
+    protected PlayerTopDown3DController     player;
     protected PlayerFeedbacks feedback;
-    protected MotorStatus       motorStatus;
+    protected PlayerStatus       motorStatus;
     protected MotorRaycaster    raycaster;
 
     protected List<ModuleBase> modules = new List<ModuleBase>();
 
-    public MotorStateBase(PlayerMotor motor, PlayerFeedbacks feedback)
+    public MotorStateBase(PlayerTopDown3DController player, PlayerFeedbacks feedback)
     {
-        this.motor      = motor;
+        this.player      = player;
         this.feedback   = feedback;
-        motorStatus     = motor.status;
-        raycaster       = motor.raycaster;
-        settings        = CharacterMotorSettings.instance;
+        motorStatus     = player.Status;
+        raycaster       = player.Raycaster;
+        settings        = CharacterSettings.instance;
     }
 
     public virtual void StateEntry()

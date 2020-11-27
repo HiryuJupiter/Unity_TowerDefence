@@ -22,7 +22,7 @@ public class MotorRaycaster : MonoBehaviour
 
     private void Start()
     {
-        groundLayer = CharacterMotorSettings.instance.GroundLayer;
+        groundLayer = CharacterSettings.instance.GroundLayer;
     }
 
     public bool OnGrounDcheck()

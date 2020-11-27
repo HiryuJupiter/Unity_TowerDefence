@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MotorStatus
+public class PlayerStatus
 {
     //Attck
     public bool isInAttackAnimation;

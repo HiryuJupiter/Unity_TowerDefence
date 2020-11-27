@@ -66,7 +66,7 @@ public class EnemySpawner : MonoBehaviour
     {
         //Spawn enemy from pool and initialize it
         GameObject pf = pools[enemyType].Spawn();
-        pf.GetComponent<Enemy>().Initialize(paths[pathIndex]);
+        pf.GetComponent<Enemy>().SetPath(paths[pathIndex]);
     }
 
     public void SpawnImmediately ()
@@ -118,15 +118,19 @@ public class EnemySpawner : MonoBehaviour
 
     private void WaveComplete()
     {
-        //When wave is completed, delay then spawn 
-        if (++waveIndex < waves.Count)
-        {
-            StartCoroutine(DelayThenSpawnWave());
-        }
-        else
-        {
-            AllWavesFinished = true;
-        }
+        waveIndex = ++waveIndex >= waves.Count ? 0 : waveIndex;
+
+        StartCoroutine(DelayThenSpawnWave());
+
+        //if (++waveIndex < waves.Count)
+        //{
+        //    StartCoroutine(DelayThenSpawnWave());
+        //}
+        //else
+        //{
+        //    waves = 0;
+        //    //AllWavesFinished = true;
+        //}
     }
 
     private IEnumerator DelayThenSpawnWave()

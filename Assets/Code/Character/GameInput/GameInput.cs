@@ -11,6 +11,7 @@ public class GameInput : MonoBehaviour
     public static bool PressedRight => MoveX > 0.1f;
     public static bool PressedDown => MoveZ < -0.1f;
     public static bool PressedUp => MoveZ < 0.1f;
+    public static bool IsMoving => MoveX != 0 || MoveZ != 0;
 
     private void Update()
     {

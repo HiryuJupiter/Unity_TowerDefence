@@ -4,7 +4,7 @@ using System.Collections;
 public class Module_MoveInAir : ModuleBase
 {
     const float RotationSpeed = 1f;
-    public Module_MoveInAir(PlayerMotor motor, PlayerFeedbacks feedback) : base(motor, feedback)
+    public Module_MoveInAir(PlayerTopDown3DController motor, PlayerFeedbacks feedback) : base(motor, feedback)
     { }
 
     private float moveXSmoothDampVelocity;
@@ -12,22 +12,30 @@ public class Module_MoveInAir : ModuleBase
 
     public override void TickUpdate()
     {
+        AnimationUpdate();
         base.TickUpdate();
-        feedback.RotateCharacter();
     }
 
     public override void TickFixedUpdate()
     {
         //Move
         //motorStatus.currentVelocity.x = Mathf.SmoothDamp(motorStatus.currentVelocity.x, GameInput.MoveX * settings.PlayerMoveSpeed, ref moveXSmoothDampVelocity, settings.SteerSpeedAir * Time.deltaTime);
-        motorStatus.currentVelocity.z = Mathf.SmoothDamp(motorStatus.currentVelocity.z, GameInput.MoveZ * settings.PlayerMoveSpeed, ref moveZSmoothDampVelocity, settings.SteerSpeedAir * Time.deltaTime);
+        status.currentVelocity.z = Mathf.SmoothDamp(status.currentVelocity.z, GameInput.MoveZ * settings.PlayerMoveSpeed, ref moveZSmoothDampVelocity, settings.SteerSpeedAir * Time.deltaTime);
     }
 
-    private void RotateCharacterWithMouse()
-    {
-        float mouseX = GameInput.MoveX;
+    //private void RotateCharacterWithMouse()
+    //{
+    //    float mouseX = GameInput.MoveX;
 
-        motor.RotateCharacter(GameInput.MoveX * RotationSpeed);
-        //motor.RotateCharacter1(Input.GetAxis("Mouse X"));
+    //    player.RotateCharacter(GameInput.MoveX * RotationSpeed);
+    //    //motor.RotateCharacter1(Input.GetAxis("Mouse X"));
+    //}
+
+    private void AnimationUpdate()
+    {
+        if (GameInput.IsMoving)
+        {
+            player.SetFacingBasedOnMovement();
+        }
     }
 }

@@ -11,14 +11,14 @@ public class Module_Jump : ModuleBase
 {
     private const float MaxJumpQueueDuration = 0.05f;
 
-    public Module_Jump(PlayerMotor motor, PlayerFeedbacks feedback) : base(motor, feedback)
+    public Module_Jump(PlayerTopDown3DController motor, PlayerFeedbacks feedback) : base(motor, feedback)
     { }
 
     #region Public 
     public override void ModuleEntry()
     {
         base.ModuleEntry();
-        if (motorStatus.jumpQueueTimer > 0f)
+        if (status.jumpQueueTimer > 0f)
         {
             OnJumpBtnDown();
         }
@@ -30,7 +30,7 @@ public class Module_Jump : ModuleBase
 
         if (GameInput.JumpBtnDown) // && !isJumping for onGround
         {
-            if (motorStatus.canJump)
+            if (status.canJump)
             {
                 OnJumpBtnDown();
             }
@@ -51,10 +51,10 @@ public class Module_Jump : ModuleBase
         base.TickFixedUpdate();
         CheckIfJustWalkeOffPlatform();
 
-        if (motorStatus.justLanded)
+        if (status.justLanded)
         {
-            motorStatus.isJumping = false;
-            motorStatus.coyoteTimer = -1f;
+            status.isJumping = false;
+            status.coyoteTimer = -1f;
         }
     }
 
@@ -81,43 +81,41 @@ public class Module_Jump : ModuleBase
 
     private void OnJumpBtnDown()
     {
-        motorStatus.isJumping = true;
-        motorStatus.jumpQueueTimer = -1f;
-        motorStatus.coyoteTimer = -1f;
+        status.isJumping = true;
+        status.jumpQueueTimer = -1f;
+        status.coyoteTimer = -1f;
 
-        motorStatus.currentVelocity.y = settings.MaxJumpForce;
-
-        Debug.Log(" I pressed jump" );
+        status.currentVelocity.y = settings.MaxJumpForce;
     }
 
     private void OnJumpBtnUp()
     {
-        if (motorStatus.currentVelocity.y > settings.MinJumpForce)
+        if (status.currentVelocity.y > settings.MinJumpForce)
         {
-            Debug.Log("Capping current jump velocity at max speed!");
 
-            motorStatus.currentVelocity.y = settings.MinJumpForce;
+
+            status.currentVelocity.y = settings.MinJumpForce;
         }
     }
 
     private void TickTimers()
     {
-        if (motorStatus.coyoteTimer > 0f)
+        if (status.coyoteTimer > 0f)
         {
-            motorStatus.coyoteTimer -= Time.deltaTime;
+            status.coyoteTimer -= Time.deltaTime;
         }
 
-        if (motorStatus.jumpQueueTimer > 0f)
+        if (status.jumpQueueTimer > 0f)
         {
-            motorStatus.jumpQueueTimer -= Time.deltaTime;
+            status.jumpQueueTimer -= Time.deltaTime;
         }
     }
 
     private void CheckIfJustWalkeOffPlatform()
     {
-        if (!motorStatus.isOnGround && motorStatus.isOnGroundPrevious && !motorStatus.isJumping)
+        if (!status.isOnGround && status.isOnGroundPrevious && !status.isJumping)
         {
-            motorStatus.coyoteTimer = settings.MaxCoyoteDuration;
+            status.coyoteTimer = settings.MaxCoyoteDuration;
         }
     }
 }

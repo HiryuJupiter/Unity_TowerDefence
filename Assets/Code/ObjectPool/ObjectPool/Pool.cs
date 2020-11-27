@@ -19,6 +19,8 @@ public class Pool
         this.prefab = prefab;
     }
 
+
+
     public GameObject Spawn()
     {
         GameObject p;
@@ -37,6 +39,13 @@ public class Pool
             actives.Add(p);
         }
         return p;
+    }
+
+    public GameObject Spawn(Vector3 pos)
+    {
+        GameObject pf = Spawn();
+        pf.GetComponent<PoolObject>().Respawned(pos);
+        return pf;
     }
 
     public void Despawn(GameObject obj)

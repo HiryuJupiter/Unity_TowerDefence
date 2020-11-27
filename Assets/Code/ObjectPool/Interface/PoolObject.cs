@@ -11,6 +11,11 @@ public abstract class PoolObject : MonoBehaviour
         this.pool = pool;
     }
 
+    public virtual void Respawned(Vector3 pos)
+    {
+        transform.position = pos;
+    }
+
     protected void ReturnToPool()
     {
         pool.Despawn(gameObject);

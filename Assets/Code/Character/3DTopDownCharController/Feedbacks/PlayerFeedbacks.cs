@@ -6,6 +6,8 @@ using System.Collections.Generic;
 [RequireComponent(typeof(Player3DAnimator))]
 public class PlayerFeedbacks : MonoBehaviour
 {
+    [SerializeField] Transform modelTransform;
+
     //Component reference
     public Player3DAnimator Animator { get; private set; }
 
@@ -21,35 +23,22 @@ public class PlayerFeedbacks : MonoBehaviour
         faceRightScale = transform.localScale;
         faceLeftScale = faceRightScale;
         faceLeftScale.x *= -1f;
-
-        SetFacingToRight(true);
     }
 
-    public void RotateCharacter ()
+    //public void RotateCharacter ()
+    //{
+    //    if (GameInput.PressedRight)
+    //    {
+    //        SetFacingToRight(true);
+    //    }
+    //    else if (GameInput.PressedLeft)
+    //    {
+    //        SetFacingToRight(false);
+    //    }
+    //}
+
+    public void SetFacing(Quaternion facing)
     {
-        if (GameInput.PressedRight)
-        {
-            SetFacingToRight(true);
-        }
-        else if (GameInput.PressedLeft)
-        {
-            SetFacingToRight(false);
-        }
+        modelTransform.localRotation = facing;
     }
-
-    public void SetFacingToRight(bool right)
-    {
-        if (right && !facingRight)
-        {
-            facingRight = true;
-            transform.localScale = faceRightScale;
-        }
-        else if (!right && facingRight)
-        {
-            facingRight = false;
-            transform.localScale = faceLeftScale;
-        }
-    }
-
-
 }

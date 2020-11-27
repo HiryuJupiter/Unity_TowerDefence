@@ -63,6 +63,7 @@ public class GameManager : MonoBehaviour
         if (!IsInPlacementMode && (Input.GetKeyDown(KeyCode.Escape)))
         {
             pauseMenu.TogglePause();
+            Cursor.lockState = (pauseMenu.isPaused) ? CursorLockMode.Confined : CursorLockMode.None;
         }
     }
     #endregion
@@ -125,6 +126,7 @@ public class GameManager : MonoBehaviour
         //Tell ui manager we're done and let it decide how to clean up the interface
         ui.GameOver(wavesCompleted);
         gameState = GameStates.GameOverScoreboard;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     //void GameLost ()

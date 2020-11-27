@@ -12,7 +12,7 @@ public class Module_MoveOnGround : ModuleBase
     private float moveSpeed => crawling ? settings.PlayerCrawlSpeed : settings.PlayerMoveSpeed;
 
     //Ctor
-    public Module_MoveOnGround(PlayerMotor motor, PlayerFeedbacks feedback) : base(motor, feedback)
+    public Module_MoveOnGround(PlayerTopDown3DController motor, PlayerFeedbacks feedback) : base(motor, feedback)
     { }
 
     #region Public methods
@@ -26,16 +26,15 @@ public class Module_MoveOnGround : ModuleBase
     {
         base.TickUpdate();
 
-        CharacterRotationUpdate();
-        feedback.RotateCharacter();
+        //CharacterRotationUpdate();
         AnimationUpdate();
     }
 
     public override void TickFixedUpdate()
     {
         //Modify x-velocity
-        //motorStatus.currentVelocity.x = Mathf.SmoothDamp(motorStatus.currentVelocity.x, GameInput.MoveX * moveSpeed, ref moveXSmoothDampVelocity, settings.SteerSpeedGround * Time.deltaTime);
-        motorStatus.currentVelocity.z = Mathf.SmoothDamp(motorStatus.currentVelocity.z, GameInput.MoveZ * moveSpeed, ref moveZSmoothDampVelocity, settings.SteerSpeedGround * Time.deltaTime);
+        status.currentVelocity.x = Mathf.SmoothDamp(status.currentVelocity.x, GameInput.MoveX * moveSpeed, ref moveXSmoothDampVelocity, settings.SteerSpeedGround * Time.deltaTime);
+        status.currentVelocity.z = Mathf.SmoothDamp(status.currentVelocity.z, GameInput.MoveZ * moveSpeed, ref moveZSmoothDampVelocity, settings.SteerSpeedGround * Time.deltaTime);
     }
 
     public override void ModuleExit()
@@ -45,25 +44,32 @@ public class Module_MoveOnGround : ModuleBase
     }
     #endregion
 
-    private void CharacterRotationUpdate ()
-    {
-        float mouseX = GameInput.MoveX;
+    //private void CharacterRotationUpdate ()
+    //{
+    //    float mouseX = GameInput.MoveX;
 
-        motor.RotateCharacter(GameInput.MoveX * RotationSpeed);
-        //motor.RotateCharacter1(Input.GetAxis("Mouse X"));
-    }
+    //    player.RotateCharacter(GameInput.MoveX * RotationSpeed);
+    //    //motor.RotateCharacter1(Input.GetAxis("Mouse X"));
+    //}
 
     private void AnimationUpdate ()
     {
-        if (!motorStatus.isInAttackAnimation)
+        if (status.isInAttackAnimation)
         {
-            if (GameInput.MoveX == 0 && GameInput.MoveZ == 0)
+            player.SetFacingToFront();
+        }
+        else
+        {
+            if (GameInput.IsMoving)
             {
-                feedback.Animator.PlayIdle();
+                feedback.Animator.PlayWalk();
+                //player.SetFacingToFront();
+                //player.SetFacingBasedOnMovement();
+                player.SetFacingBasedOnMovement();
             }
             else
             {
-                feedback.Animator.PlayWalk();
+                feedback.Animator.PlayIdle();
             }
         }
     }

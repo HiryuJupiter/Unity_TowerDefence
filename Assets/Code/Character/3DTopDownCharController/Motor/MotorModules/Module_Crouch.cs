@@ -7,7 +7,7 @@ public class Module_Crouch : ModuleBase
     private Vector2 originalOffset;
     private Vector2 originalSize;
     private BoxCollider2D collider;
-    public Module_Crouch(PlayerMotor motor, PlayerFeedbacks feedback) : base(motor, feedback)
+    public Module_Crouch(PlayerTopDown3DController motor, PlayerFeedbacks feedback) : base(motor, feedback)
 	{
 		collider = motor.GetComponent<BoxCollider2D>();
 		originalOffset = collider.offset;

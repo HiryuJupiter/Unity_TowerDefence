@@ -3,21 +3,21 @@ using System.Collections;
 
 public abstract class ModuleBase
 {
-    protected CharacterMotorSettings settings;
-    protected PlayerMotor motor;
-    protected MotorStatus motorStatus;
+    protected CharacterSettings settings;
+    protected PlayerTopDown3DController player;
+    protected PlayerStatus status;
     protected PlayerFeedbacks feedback;
     protected MotorRaycaster raycaster;
 
 
-    public ModuleBase(PlayerMotor motor, PlayerFeedbacks feedback)
+    public ModuleBase(PlayerTopDown3DController player, PlayerFeedbacks feedback)
     {
-        this.motor = motor;
+        this.player = player;
         this.feedback = feedback;
-        motorStatus = motor.status;
-        raycaster   = motor.raycaster;
+        status = player.Status;
+        raycaster   = player.Raycaster;
 
-        settings = CharacterMotorSettings.instance;
+        settings = CharacterSettings.instance;
     }
 
     public virtual void ModuleEntry() { }

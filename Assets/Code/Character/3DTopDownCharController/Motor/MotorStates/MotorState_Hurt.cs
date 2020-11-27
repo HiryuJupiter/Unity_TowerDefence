@@ -4,12 +4,12 @@ using System.Collections;
 
 public class MotorState_Hurt : MotorStateBase
 {
-    public MotorState_Hurt(PlayerMotor motor, PlayerFeedbacks feedbacks) : base(motor, feedbacks)
+    public MotorState_Hurt(PlayerTopDown3DController player, PlayerFeedbacks feedbacks) : base(player, feedbacks)
     {
         modules = new List<ModuleBase>()
         {
-            new Module_Gravity(motor, feedbacks),
-            new Module_HurtKnockBack(motor, feedbacks),
+            new Module_Gravity(player, feedbacks),
+            new Module_HurtKnockBack(player, feedbacks),
         };
     }
 
@@ -48,11 +48,11 @@ public class MotorState_Hurt : MotorStateBase
 
         if (motorStatus.isOnGround)
         {
-            motor.SwitchToNewState(MotorStates.OnGround);
+            player.SwitchToNewState(MotorStates.OnGround);
         }
         else
         {
-            motor.SwitchToNewState(MotorStates.Aerial);
+            player.SwitchToNewState(MotorStates.Aerial);
         }
     }
 }

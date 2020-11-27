@@ -22,8 +22,8 @@ public class HighscoreBoard : MonoBehaviour
         highscoreBoard.SetActive(true);
         highscore = score;
         CheckIfNewHighscore(score);
-
-        StartCoroutine(PlayHighscoreAnimation());
+        highscoreText.text = $"{(int)highscore:0000}";
+        //StartCoroutine(PlayHighscoreAnimation());
     }
 
     private IEnumerator PlayHighscoreAnimation ()
@@ -31,7 +31,7 @@ public class HighscoreBoard : MonoBehaviour
         //Tick and increase the highscore text from 0 to the current score
         float score = 0;
         float t = 0;
-        while (t < 2f)
+        while (t < 1f)
         {
             t += Time.deltaTime;
             float t2 = t / 2f;

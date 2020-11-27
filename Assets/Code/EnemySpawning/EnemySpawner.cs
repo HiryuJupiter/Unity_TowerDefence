@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    private const float WaveInterval = 6f;
+    private const float WaveInterval = 5f;
 
     //Lazy singleton
     public static EnemySpawner instance;
@@ -110,7 +110,7 @@ public class EnemySpawner : MonoBehaviour
     private void SpawnWave()
     {
         //Tell gameManager we're going into a new wave
-        gm.StartWave(waveIndex + 1);
+        gm.StartWave();
 
         //Start wave and pass in a Action callback anonymous method
         waves[waveIndex].StartWave(() => WaveComplete(), this);

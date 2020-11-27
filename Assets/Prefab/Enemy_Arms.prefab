@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 329e2e3a25f338c4e8b7bd1f38336152, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 1
+  moveSpeed: 2
   hp: 1
   reward: 100
 --- !u!54 &7499486977265015844

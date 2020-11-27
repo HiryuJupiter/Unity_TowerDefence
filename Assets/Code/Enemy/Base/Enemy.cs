@@ -109,7 +109,7 @@ public abstract class Enemy : PoolObject
 
     private Vector3 CurrentWaypointPosition => path.GetWaypointPosition(waypointIndex);
 
-    private bool ArrivedAtWaypoint => Vector3.Distance(transform.position, nextWaypointPos) < 0.01f;
+    private bool ArrivedAtWaypoint => Vector3.Distance(transform.position, nextWaypointPos) < 0.05f;
 
     private Vector3 DirectionToNext => nextWaypointPos - transform.position;
 }

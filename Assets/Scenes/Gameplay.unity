@@ -1602,7 +1602,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -131}
+  m_AnchoredPosition: {x: 0, y: -30.999992}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &587147231
@@ -3251,7 +3251,7 @@ PrefabInstance:
     - target: {fileID: 2465621840553354813, guid: e8b9327cf5a6e634a90ba46de14ca53a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.144
+      value: 0.175
       objectReference: {fileID: 0}
     - target: {fileID: 2465621840553354813, guid: e8b9327cf5a6e634a90ba46de14ca53a,
         type: 3}
@@ -3298,8 +3298,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 632312441, guid: e8b9327cf5a6e634a90ba46de14ca53a, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8b9327cf5a6e634a90ba46de14ca53a, type: 3}
 --- !u!1 &896705223
 GameObject:
@@ -5187,7 +5186,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -901, y: 303}
+  m_AnchoredPosition: {x: -901, y: 403}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1478426123
@@ -5221,12 +5220,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'The characters are
-
-    just for decoration!
+  m_Text: 'Don''t let enemies reach your base!
 
 
-    WSAD to move
+    WSAD and mouse to move
 
     Space
     to jump
@@ -7036,24 +7033,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1868045176}
   m_CullTransparentMesh: 0
---- !u!1 &1873688711 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8132092975427829120, guid: e8b9327cf5a6e634a90ba46de14ca53a,
-    type: 3}
-  m_PrefabInstance: {fileID: 885026692}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1873688715
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1873688711}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c3930cde85aabb42ac578f472ac3be5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1888189801
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -12,12 +12,9 @@ public abstract class PfxBase : PoolObject
     {
         ps = GetComponent<ParticleSystem>();
     }
-
-
-
-    public override void Respawned(Vector3 pos)
+        
+    public override void Respawned()
     {
-        base.Respawned(pos);
         ps.Play();
         StartCoroutine(DelayBeforeDestroy());
     }

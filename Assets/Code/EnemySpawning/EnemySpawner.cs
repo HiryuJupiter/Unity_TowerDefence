@@ -52,7 +52,8 @@ public class EnemySpawner : MonoBehaviour
 
     //private void OnGUI()
     //{
-    //    GUI.Label(new Rect(20, 500, 200, 20), "AllEnemies.count " + AllEnemies.Count());
+    //    GUI.Label(new Rect(20, 300, 900, 20), " Enemy spawner AllEnemies.count " + allEnemyPositions.Count);
+    //    GUI.Label(new Rect(20, 320, 900, 20), " too many arms count " + pools[EnemyTypes.TooManyArms].actives.Count);
     //}
     #endregion
 

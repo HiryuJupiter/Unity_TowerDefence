@@ -3,6 +3,8 @@ using System.Collections;
 
 public class PlayerWeapon : MonoBehaviour
 {
+    [SerializeField] int damage = 5;
+
     private LayerMask enemyLayer;
 
     protected void Awake()
@@ -14,7 +16,7 @@ public class PlayerWeapon : MonoBehaviour
     {
         if (enemyLayer == (enemyLayer | 1 << other.gameObject.layer))
         {
-            other.GetComponent<Enemy>().TakeDamage(1);
+            other.GetComponent<Enemy>().TakeDamage(damage);
         }
     }
 }

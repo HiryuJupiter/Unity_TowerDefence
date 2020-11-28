@@ -5,6 +5,8 @@ using System.Collections.Generic;
 [System.Serializable]
 public class Path : MonoBehaviour
 {
+    [SerializeField] bool visualizePath;
+
     [SerializeField] private List<Transform> waypoints;
     [SerializeField] private Color color = Color.cyan;
 
@@ -50,6 +52,9 @@ public class Path : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        if (!visualizePath)
+            return;
+
         //Visualize the waypoint connection on screen
         for (int i = 0; i < waypoints.Count; i++)
         {

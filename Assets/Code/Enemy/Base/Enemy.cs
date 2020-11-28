@@ -5,10 +5,11 @@ using UnityEngine;
 public abstract class Enemy : PoolObject
 {
     [SerializeField] private float moveSpeed = 1f;
-    [SerializeField] private int hp = 1;
+    [SerializeField] private int startingHP = 3;
     [SerializeField] private int reward = 100;
 
     //Status
+    private int hp;
     private int waypointIndex;
     private Vector3 nextWaypointPos;
     private bool reachedEnd;
@@ -38,6 +39,11 @@ public abstract class Enemy : PoolObject
     #endregion
 
     #region Public
+    public override void Respawned()
+    {
+        hp = startingHP;
+    }
+
     public void SetPath(Path path)
     {
         //Reset all values
@@ -54,11 +60,11 @@ public abstract class Enemy : PoolObject
     public void TakeDamage(int damage)
     {
         //Reduce health. If runs out of hp, add money and return to pool
-        hp -= 10000000; //Just instantly kill since this is just a prototype
+        startingHP -= damage; //Just instantly kill since this is just a prototype
         pfx.SpawnPfx_EnemyHurt(transform.position);
         SfxPlayer.instance.Play_EnemyHurt();
 
-        if (hp <= 0)
+        if (startingHP <= 0)
         {
             gm.AddMoney(reward);
             ReturnToPool();

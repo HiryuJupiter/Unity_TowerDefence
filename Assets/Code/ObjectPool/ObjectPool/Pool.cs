@@ -19,9 +19,21 @@ public class Pool
         this.prefab = prefab;
     }
 
-
-
     public GameObject Spawn()
+    {
+        GameObject p = GetPrefab();
+        p.GetComponent<PoolObject>().Respawned();
+        return p;
+    }
+
+    public GameObject Spawn(Vector3 pos)
+    {
+        GameObject p = GetPrefab();
+        p.GetComponent<PoolObject>().Respawned(pos);
+        return p;
+    }
+
+    private GameObject GetPrefab()
     {
         GameObject p;
         if (inactives.Count > 0)
@@ -36,17 +48,13 @@ public class Pool
             //If object pool is empty, then spawn a new object.
             p = GameObject.Instantiate(prefab, offscreen, Quaternion.identity);
             p.GetComponent<PoolObject>().SetPool(this);
-            actives.Add(p);
         }
+
+        actives.Add(p);
         return p;
     }
 
-    public GameObject Spawn(Vector3 pos)
-    {
-        GameObject pf = Spawn();
-        pf.GetComponent<PoolObject>().Respawned(pos);
-        return pf;
-    }
+
 
     public void Despawn(GameObject obj)
     {
